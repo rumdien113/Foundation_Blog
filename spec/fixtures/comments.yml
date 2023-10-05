@@ -1,0 +1,14 @@
+comment1:
+  content: Comment 1 Content
+  user: user1
+  post: post1
+
+comment2:
+  content: Comment 2 Content
+  user: user2
+  post: post1
+
+comment3:
+  content: Comment 3 Content
+  user: user1
+  post: post2

@@ -1,0 +1,13 @@
+user1:
+  username: user1_username
+  email: user1@example.com
+  password_digest: <%= BCrypt::Password.create("password123").to_s %>
+  phone: 1234567890
+  role: User
+
+user2:
+  username: user2_username
+  email: user2@example.com
+  password_digest: <%= BCrypt::Password.create("password456").to_s %>
+  phone: 9876543210
+  role: Admin

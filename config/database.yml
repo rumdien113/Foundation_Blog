@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  username: nguyenduyhieu
+  password: 
+
+development:
+  <<: *default
+  database: Blog_train_triip
+
+test:
+  <<: *default
+  database: Blog_train_triip_test
+
+production:
+  <<: *default
+  database: Blog_train_triip_production

@@ -1,0 +1,11 @@
+post1:
+  title: Post 1 Title
+  introduction: Introduction for Post 1
+  content: Content for Post 1
+  banner: banner1.jpg
+
+post2:
+  title: Post 2 Title
+  introduction: Introduction for Post 2
+  content: Content for Post 2
+  banner: banner2.jpg
