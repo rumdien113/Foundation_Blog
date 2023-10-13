@@ -2,7 +2,7 @@
 class Users::SessionsController < Devise::SessionsController
     before_action :configure_permitted_parameters
   
-     respond_to :json # Cho phép controller trả về JSON response.
+     respond_to :json 
 
      def create
      super do |resource|

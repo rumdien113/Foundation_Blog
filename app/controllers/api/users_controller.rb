@@ -12,6 +12,7 @@ class Api::UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    user.role = 'User'
 
     if user.save
       render json: { message: 'Đăng ký thành công' }
