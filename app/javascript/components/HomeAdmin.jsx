@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import axios from 'axios';
-import Header from './Header';
+import axios from 'axios'
+import Header from './Header'
 import bg from '../../assets/images/bg'
 
 function HomeUser() {
-    return ( <div>
+    return ( 
+    <div className='bg-zinc-900 h-screen'>
       <Header/>
-      <img src={bg} alt="" className='w-100' />
-    </div> );
+      
+    </div> )
 }
 
-export default HomeUser;
+export default HomeUser
