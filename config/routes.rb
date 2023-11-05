@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'api/get_weather', to: 'chatbot#get_weather'
   post 'chatbot/download_youtube_video', to: 'chatbot#download_youtube_video'
   #=)) chỗ này
-  get 'posts/:post_id/comments', to: 'comments#show_comments_for_post'
+  get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
