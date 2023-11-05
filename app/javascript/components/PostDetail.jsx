@@ -14,6 +14,7 @@ const PostDetail = () => {
   useEffect(() => {
     fetchPosts();
     getCurrentUser();
+    fetchComments();
   }, []);
 
   const fetchPosts = () => {
@@ -53,41 +54,14 @@ const PostDetail = () => {
 
   const fetchComments = (postId) => {
     axios
-      .get(`http://localhost:3000/api/posts/${postId}/show_comments`)
-      .then((response) => {
-        const comments = response.data;
-        setSelectedPost((prevPost) => ({
+      .get(`http://localhost:3000/api/posts/${postId}/comments`)
+      .then(response => {
+        setSelectedPost(prevPost => ({
           ...prevPost,
-          comments: comments.map((comment) => ({
-            ...comment,
-            user: users[comment.user_id], // Lấy thông tin người dùng từ state users
-          })),
-        }));
-
-        // Lấy danh sách user_ids từ các bình luận để lấy thông tin người dùng
-        const user_ids = comments.map((comment) => comment.user_id);
-        // Lấy thông tin người dùng từ API hoặc từ dữ liệu hiện có (nếu đã có)
-        // Ví dụ: lấy thông tin người dùng từ API
-        user_ids.forEach((user_id) => {
-          if (!users[user_id]) {
-            axios
-              .get(`http://localhost:3000/api/users/${user_id}`)
-              .then((response) => {
-                setUsers((prevUsers) => ({
-                  ...prevUsers,
-                  [user_id]: response.data, // Lưu thông tin người dùng vào state users
-                }));
-              })
-              .catch((error) => {
-                console.log(error.response.data);
-              });
-          }
-        });
+          comments: response.data
+        }))
       })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+  }
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -210,8 +184,9 @@ const PostDetail = () => {
                     {selectedPost.comments ? (
                       selectedPost.comments.map((comment) => (
                         <div key={comment.id} onClick={() => handleCommentSelect(comment)}>
+                          {/* =)) chỗ này nha */}
                           <p>
-                            {comment.user && comment.user.username}: {comment.content}
+                            {comment.username}: {comment.content}
                           </p>
                           {selectedComment && selectedComment.id === comment.id && (
                             <div>

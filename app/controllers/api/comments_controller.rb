@@ -82,6 +82,21 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+ # T sửa chỗ này nhen =))) 
+  def show_comments_for_post
+    post_id = params[:post_id]
+  
+    comments = Comment.where(post_id: post_id)
+  
+    render json: comments.map { |comment|
+      {
+        username: User.find(comment.user_id).username, 
+        content: comment.content
+      }
+    }, status: :ok
+  end
+
+
   private
 
   def comment_params
