@@ -35,7 +35,7 @@ const Header = () => {
               </a>
             </li>
             <li className="p-2">
-              <a className="" href="/comment">
+              <a className="" href="/post">
                 <img src={write} width={40} height={40} alt="Tao bai viet" />
               </a>
             </li>

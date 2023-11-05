@@ -192,10 +192,10 @@ const HomeUser = () => {
   };
 
   return ( 
-    <div className='bg-zinc-900 h-screen'>
+    <div className='bg-zinc-900 h-full'>
       {currentUserRole === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
-      {currentUserRole === 'Admin' ? <div>Đang xem ở chế độ admin</div> : <div>Đang xem ở chế độ user</div>}
-      <div className="container py-4">
+      {/* {currentUserRole === 'Admin' ? <div>Đang xem ở chế độ admin</div> : <div>Đang xem ở chế độ user</div>} */}
+      <div className="py-4">
         <div className="max-w-md mx-auto p-4">
           {posts.map((post) => (
             <div key={post.id} className="mb-4 p-4 border border-gray-300 rounded">
@@ -203,6 +203,8 @@ const HomeUser = () => {
                 {post.title}
               </h3>
               <p className="text-gray-600">{post.introduction}</p>
+              
+              {/* <p className='text-white'>{post.content}</p> */}
               {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt="Banner" className="mt-4" />}
               {selectedPost && selectedPost.id === post.id && (
                 <>
