@@ -18,5 +18,7 @@ class PagesController < ApplicationController
     end
     def comment
     end 
+    def chatbot
+    end
 end
   

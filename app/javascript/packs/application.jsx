@@ -10,6 +10,7 @@ import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import PostDetail from '../components/PostDetail';
 import UserList from '../components/UserList'
+import ChatBot from '../components/ChatBot';
 ReactOnRails.register({
-  LoginForm,Register,HomeUser, App, Header,HomeAdmin, ManageUsers,PostForm, PostList,PostDetail,UserList
+  LoginForm,Register,HomeUser, App, Header,HomeAdmin, ManageUsers,PostForm, PostList,PostDetail,UserList,ChatBot
 });

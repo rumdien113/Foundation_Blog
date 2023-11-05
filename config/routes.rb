@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get 'post', to: 'pages#post'
   get '/listpost' , to: 'pages#listpost'
   get '/comment' , to: 'pages#comment'
+  get 'ask', to: 'chatbot#ask', as: 'ask'
+  post 'api/get_weather', to: 'chatbot#get_weather'
+  post 'chatbot/download_youtube_video', to: 'chatbot#download_youtube_video'
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'

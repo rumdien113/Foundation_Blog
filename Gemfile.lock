@@ -104,6 +104,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
     erubi (1.12.0)
     execjs (2.8.1)
     factory_bot (6.2.1)
@@ -119,9 +120,13 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
+    fileutils (1.7.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -190,6 +195,8 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    open-uri-cached (1.0.0)
+    openai (0.3.0)
     orm_adapter (0.5.0)
     pg (1.5.3)
     public_suffix (5.0.3)
@@ -298,6 +305,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode_utils (1.4.0)
     version_gem (1.1.3)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -321,6 +329,8 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    youtube_dl (0.0.2)
+      httparty
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -333,8 +343,11 @@ DEPENDENCIES
   carrierwave
   debug
   devise
+  dotenv
   factory_bot_rails
   faker
+  fileutils
+  httparty
   image_processing
   importmap-rails
   jbuilder
@@ -343,6 +356,8 @@ DEPENDENCIES
   mini_racer
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  open-uri-cached
+  openai
   pg
   puma (~> 5.0)
   rack-cors
@@ -356,9 +371,11 @@ DEPENDENCIES
   tailwindcss-rails (~> 2.0)
   turbo-rails
   tzinfo-data
+  unicode_utils
   web-console
   webdrivers
   webpacker
+  youtube_dl
 
 RUBY VERSION
    ruby 3.0.0p0

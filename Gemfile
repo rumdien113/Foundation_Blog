@@ -47,6 +47,17 @@ gem 'faker'
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
+gem 'httparty'
+gem 'dotenv'
+gem 'unicode_utils'
+gem 'open-uri-cached'
+gem 'fileutils'
+gem 'openai'
+gem 'youtube_dl'
+# gem 'youtube-dl.rb'
+
+
+
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
