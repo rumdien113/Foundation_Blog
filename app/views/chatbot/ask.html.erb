@@ -1,8 +1,1 @@
-<%= form_with url: ask_path, method: :get do |form| %>
-    <%= form.text_field :query %> 
-    <%= form.submit "Ask" %>
-  <% end %>
-  
-  <div>
-    <%= @answer %>
-  </div>
+<%= react_component('ChatBot')%>

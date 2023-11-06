@@ -6,11 +6,14 @@ Rails.application.routes.draw do
   get '/homeuser', to: 'pages#homeuser'
   get 'homeadmin', to: 'pages#homeadmin'
   get '/login', to: 'pages#login'
+  get '/chatbot', to: 'pages#chatbot'
   get '/manageuser', to: 'pages#manageuser'
   get 'post', to: 'pages#post'
   get '/listpost' , to: 'pages#listpost'
   get '/comment' , to: 'pages#comment'
-  get 'ask', to: 'chatbot#ask', as: 'ask'
+  post '/ask', to: 'chatbot#ask', as: 'ask'
+  # Define route for chatbot conversational endpoint
+  post '/chatbot',to: 'chatbot#converse'
   post 'api/get_weather', to: 'chatbot#get_weather'
   post 'chatbot/download_youtube_video', to: 'chatbot#download_youtube_video'
   #=)) chỗ này

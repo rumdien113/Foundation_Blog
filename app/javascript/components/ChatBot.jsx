@@ -1,69 +1,91 @@
+// src/components/Chatbot.js
+
 import React, { useState } from "react";
 import axios from "axios";
-import Header from './Header';
 
-function WeatherApp() {
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState(null);
+const chatContainerStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+};
 
-  const handleChange = (e) => {
-    setCity(e.target.value);
+const chatMessageStyle = {
+  padding: "8px",
+  margin: "8px",
+  borderRadius: "4px",
+};
+
+const userMessageStyle = {
+  backgroundColor: "#007bff",
+  color: "#fff",
+  alignSelf: "flex-end",
+};
+
+const botMessageStyle = {
+  backgroundColor: "#eee",
+  color: "#000",
+  alignSelf: "flex-start",
+};
+
+const Chatbot = () => {
+  const [question, setQuestion] = useState("");
+  const [chat, setChat] = useState([]);
+  const [error, setError] = useState("");
+
+  const handleQueryChange = (e) => {
+    setQuestion(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post("http://localhost:3000/api/get_weather", { city });
-      const data = response.data;
-
-      setWeather(data);
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
+  const handleAsk = () => {
+    if (question.trim() === "") {
+      setError("No query provided");
+    } else {
+      setError("");
+      setChat([...chat, { text: question, user: true }]);
+      axios
+        .post("/chatbot", { question })
+        .then((response) => {
+          setChat([...chat, { text: response.data.answer, user: false }]);
+        })
+        .catch((error) => {
+          setError("Error fetching data from the server");
+        });
+      setQuestion("");
     }
   };
 
   return (
     <div className="container">
-        <Header/>
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-header">Chat</div>
-            <div className="card-body chat-container">
-              {weather && (
-                <div className="message">
-                  <div className="message-content text-right">
-                    <p><strong>ChatBot:</strong></p>
-                    <p>Thành phố: {weather.city}</p>
-                    <p>Thời tiết: {weather.weather}</p>
-                    <p>Độ ẩm: {weather.humidity}%</p>
-                    <p>Áp suất: {weather.pressure} hPa</p>
-                  </div>
-                </div>
-              )}
-
-              <div className="message">
-                <div className="message-content">
-                  <p><strong>Bạn:</strong></p>
-                  <input
-                    type="text"
-                    placeholder="Nhập tên thành phố"
-                    value={city}
-                    onChange={handleChange}
-                    className="form-control"
-                  />
-                  <button onClick={handleSubmit} className="btn btn-primary mt-2">
-                    Lấy thông tin thời tiết
-                  </button>
-                </div>
-              </div>
-            </div>
+      <h1>Chatbot</h1>
+      <div style={chatContainerStyle}>
+        {chat.map((message, index) => (
+          <div
+            key={index}
+            style={
+              message.user
+                ? { ...chatMessageStyle, ...userMessageStyle }
+                : { ...chatMessageStyle, ...botMessageStyle }
+            }
+          >
+            {message.text}
           </div>
-        </div>
+        ))}
       </div>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Ask a question"
+          value={question}
+          onChange={handleQueryChange}
+        />
+      </div>
+      <button className="btn btn-primary" onClick={handleAsk}>
+        Ask
+      </button>
+      {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
-}
+};
 
-export default WeatherApp;
+export default Chatbot;

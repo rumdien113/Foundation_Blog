@@ -1,0 +1,187 @@
+[
+    {
+      "question": "What is your name?",
+      "response": "My name is Duy Hiếu!"
+    },
+    {
+      "question": "How are you?",
+      "response": "I'm doing great, thanks! :)))"
+    },
+    {
+        "question": "Hi",
+        "response": "Xin chào tôi là công cụ AI do Duy Hiếu và Tiến Đạt trainning :)))"
+      },
+      {
+        "question": "Hôm nay tôi buồn quá",
+        "response": "Buồn thì ngủ thôi =)))"
+      },
+      
+    {
+        "question": "What is gross domestic product?",
+        "response": "Gross domestic product or GDP is the total value of goods and services produced within a country during a specific period."
+      },
+      {
+        "question": "What is a stock market?",
+        "response": "A stock market is where buyers and sellers trade shares of publicly listed companies."
+      },
+      {
+        "question": "What brings the most happiness in life?",
+        "response": "Research suggests that close relationships, a purposeful life, and giving to others often lead to the most happiness and fulfillment in life."
+      },
+      {
+        "question": "What is the meaning of life?",
+        "response": "There is no definitive answer, but many philosophies suggest living a moral life, contributing value to society, pursuing happiness, and finding meaning in your experiences."
+      },
+      {
+        "question": "Công nghệ Blockchain là gì?",
+        "response": "Blockchain là một công nghệ lưu trữ dữ liệu phân tán và an toàn, được sử dụng chủ yếu trong việc quản lý tiền điện tử như Bitcoin."
+      },
+      {
+        "question": "IoT (Internet of Things) là gì?",
+        "response": "IoT là một mạng lưới các thiết bị và cảm biến kết nối với internet để thu thập và chia sẻ dữ liệu trong thời gian thực."
+      },
+      {
+        "question": "Hệ điều hành là gì?",
+        "response": "Hệ điều hành là một phần mềm quản lý và điều khiển các tài nguyên của máy tính, bao gồm việc quản lý bộ nhớ, phân quyền và thực thi các ứng dụng."
+      },
+      {
+        "question": "Lập trình viên làm gì?",
+        "response": "Lập trình viên là người tạo ra và phát triển các ứng dụng và phần mềm bằng việc viết mã lập trình."
+      },
+      {
+        "question": "Công nghệ trí tuệ nhân tạo (AI) là gì?",
+        "response": "AI là một lĩnh vực trong công nghệ thông tin tập trung vào việc phát triển máy tính có khả năng học hỏi và thực hiện các nhiệm vụ thông minh."
+      },
+      {
+        "question": "Phần mềm mã nguồn mở là gì?",
+        "response": "Phần mềm mã nguồn mở là phần mềm mà mã nguồn của nó được công bố công khai và có thể sửa đổi, sử dụng và phân phối miễn phí."
+      },
+      {
+        "question": "Cloud computing (máy chủ đám mây) là gì?",
+        "response": "Cloud computing là mô hình cung cấp dịch vụ máy chủ và lưu trữ dựa trên internet, cho phép truy cập dễ dàng và quản lý tài nguyên từ xa."
+      },
+      {
+        "question": "Ngôn ngữ lập trình phổ biến nhất là gì?",
+        "response": "Ngôn ngữ lập trình phổ biến nhất hiện nay bao gồm JavaScript, Python, Java, C++, và Ruby."
+      },
+      {
+        "question": "Phân mềm chuyên nghiệp là gì?",
+        "response": "Phần mềm chuyên nghiệp là phần mềm được phát triển để giải quyết một số công việc hoặc nhiệm vụ cụ thể trong lĩnh vực chuyên ngành."
+      },
+      {
+        "question": "Phân mềm mã hóa dữ liệu là gì?",
+        "response": "Phần mềm mã hóa dữ liệu là công cụ để bảo vệ thông tin bằng cách biến đổi nó thành một định dạng không đọc được trừ khi có chìa khóa giải mã."
+      },
+      {
+        "question": "Tôi đang trải qua một thời kỳ khó khăn, tôi nên làm gì?",
+        "response": "Hãy thử tìm sự hỗ trợ từ bạn bè và gia đình, hoặc nếu cần, tham khảo một chuyên gia tâm lý. Bạn không cần phải đối mặt với mọi thách thức một mình."
+      },
+      {
+        "question": "Tôi cảm thấy cô đơn và bị tổn thương. Làm sao để cảm thấy được kết nối hơn?",
+        "response": "Hãy thử tham gia các hoạt động xã hội, tìm cơ hội để kết nối với người khác. Đôi khi, việc chia sẻ cảm xúc và nói chuyện với ai đó có thể giúp bạn cảm thấy tốt hơn."
+      },
+      {
+        "question": "Tôi mất một người thân yêu. Làm sao để vượt qua nỗi đau này?",
+        "response": "Mất mát người thân yêu là một trải nghiệm khó khăn. Hãy cho phép mình trải qua quá trình khám phá cảm xúc và tình cảm, và nếu cần, hãy tìm sự hỗ trợ từ người thân và chuyên gia."
+      },
+      {
+        "question": "Làm sao để giữ tinh thần lạc quan khi mọi thứ trở nên khó khăn?",
+        "response": "Hãy tập trung vào những điều tích cực trong cuộc sống và tìm niềm vui từ những hoạt động bạn yêu thích. Đôi khi, việc tạo ra lịch trình hàng ngày với những hoạt động tích cực có thể giúp tăng cường tinh thần lạc quan."
+      },
+      {
+        "question": "Tôi bị tổn thương trong tình cảm. Làm sao để phục hồi và tin tưởng một lần nữa?",
+        "response": "Phục hồi khỏi tổn thương tình cảm đòi hỏi thời gian và làm việc trên bản thân. Hãy thử tìm sự hỗ trợ từ chuyên gia tâm lý hoặc tư vấn để giúp bạn xác định nguyên nhân và tìm cách khắc phục."
+      },
+      {
+        "question": "Làm sao để tự yêu bản thân hơn khi tôi cảm thấy tổn thương?",
+        "response": "Tự yêu bản thân bắt đầu từ việc chấp nhận và trân trọng bản thân. Hãy nhớ rằng bạn đáng quý và đáng yêu, và tập trung vào việc phát triển kỹ năng tự quản lý cảm xúc và tạo ra một môi trường tích cực cho bản thân."
+      },
+      {
+        "question": "Làm thế nào để khai báo một biến kiểu số nguyên?",
+        "response": "Bạn có thể khai báo một biến kiểu số nguyên như sau:\n\n```cpp\nint myVariable = 42;\n```"
+      },
+      {
+        "question": "Làm thế nào để viết một vòng lặp 'for'?",
+        "response": "Bạn có thể viết một vòng lặp 'for' như sau:\n\n```java\nfor (int i = 0; i < 10; i++) {\n    // Thực hiện công việc 10 lần\n}\n```"
+      },
+      {
+        "question": "Làm thế nào để khai báo một mảng?",
+        "response": "Bạn có thể khai báo một mảng như sau:\n\n```ruby\nmyArray = [1, 2, 3, 4]\n```"
+      },
+      {
+        "question": "Làm thế nào để in một chuỗi ra màn hình?",
+        "response": "Để in một chuỗi ra màn hình, bạn có thể sử dụng hàm 'echo' hoặc 'print' trong PHP, ví dụ:\n\n```php\necho 'Hello, World!';\n```"
+      },
+      {
+        "question": "Làm thế nào để thực hiện phép cộng trong C++?",
+        "response": "Bạn có thể thực hiện phép cộng trong C++ như sau:\n\n```cpp\nint sum = 5 + 3;\n```"
+      },
+      {
+        "question": "Làm thế nào để khai báo một chuỗi trong Java?",
+        "response": "Để khai báo một chuỗi trong Java, bạn có thể sử dụng lớp `String`, ví dụ:\n\n```java\nString myString = \"Hello, World!\";\n```"
+      },
+      {
+        "question": "Làm thế nào để viết một vòng lặp 'while' trong Ruby?",
+        "response": "Bạn có thể viết một vòng lặp 'while' trong Ruby như sau:\n\n```ruby\ni = 0\nwhile i < 5\n  puts i\n  i += 1\nend\n```"
+      },
+      {
+        "question": "Làm thế nào để khai báo một biến global trong PHP?",
+        "response": "Bạn có thể khai báo một biến global trong PHP bằng cách sử dụng từ khóa 'global', ví dụ:\n\n```php\nglobal $myVariable;\n$myVariable = 42;\n```"
+      },
+      {
+        "question": "Làm thế nào để sử dụng một hàm có sẵn (built-in function) trong C++?",
+        "response": "Để sử dụng một hàm có sẵn trong C++, bạn cần bao gồm thư viện tương ứng và sau đó gọi hàm đó, ví dụ:\n\n```cpp\n#include <iostream>\nint main() {\n  std::cout << \"Hello, World!\";\n  return 0;\n}\n```"
+      },
+      {
+        "question": "Làm thế nào để viết một phương thức (method) trong Java?",
+        "response": "Để viết một phương thức trong Java, bạn cần sử dụng cú pháp như sau:\n\n```java\npublic void myMethod() {\n  // Thực hiện các công việc ở đây\n}\n```"
+      },
+      {
+        "question": "Làm thế nào để thực hiện việc kiểm tra điều kiện 'if' trong Ruby?",
+        "response": "Bạn có thể thực hiện kiểm tra điều kiện 'if' trong Ruby như sau:\n\n```ruby\nif x > 10\n  puts 'x lớn hơn 10'\nelse\n  puts 'x không lớn hơn 10'\nend\n```"
+      },
+      {
+        "question": "Làm thế nào để khai báo một mảng liên tục trong PHP?",
+        "response": "Để khai báo một mảng liên tục trong PHP, bạn có thể sử dụng cú pháp như sau:\n\n```php\n$myArray = array(1, 2, 3, 4);\n```"
+      },
+      {
+        "question": " để sử dụng con trỏ trong C++?",
+        "response": "Bạn có thể sử dụng con trỏ trong C++ như sau:\n\n```cpp\nint *ptr;\nint value = 42;\nptr = &value;\n```"
+      },
+      {
+        "question": "Làm thế nào để định nghĩa một lớp (class) trong Java?",
+        "response": "Để định nghĩa một lớp trong Java, bạn cần sử dụng cú pháp như sau:\n\n```java\nclass MyClass {\n  // Các thành viên và phương thức của lớp\n}\n```"
+      },
+      {
+        "question": " sử dụng biểu thức chính quy (regular expression) trong Ruby?",
+        "response": "Để sử dụng biểu thức chính quy trong Ruby, bạn có thể sử dụng lớp `Regexp`, ví dụ:\n\n```ruby\npattern = /hello/ # Biểu thức chính quy để tìm chuỗi 'hello'\nif pattern =~ 'hello, world'\n  puts 'Tìm thấy chuỗi'\nend\n```"
+      },
+      {
+        "question": "Làm thế nào để viết một vòng lặp 'foreach' trong PHP?",
+        "response": "Để viết một vòng lặp 'foreach' trong PHP, bạn có thể sử dụng cú pháp như sau:\n\n```php\n$myArray = array(1, 2, 3, 4);\nforeach ($myArray as $value) {\n  echo $value;\n}\n```"
+      },
+      {
+        "question": "Làm thế nào để thực hiện phép trừ trong C++?",
+        "response": "Bạn có thể thực hiện phép trừ trong C++ như sau:\n\n```cpp\nint difference = 10 - 3;\n```"
+      },
+      {
+        "question": "khai báo một biến static trong Java?",
+        "response": "Để khai báo một biến static trong Java, bạn cần sử dụng từ khóa 'static', ví dụ:\n\n```java\nclass MyClass {\n  static int myStaticVariable = 42;\n}\n```"
+      },
+      {
+        "question": "Làm thế nào để đọc dữ liệu từ tệp (file) trong Ruby?",
+        "response": "Bạn có thể đọc dữ liệu từ tệp trong Ruby bằng cách sử dụng lớp `File`, ví dụ:\n\n```ruby\nfile = File.open('myfile.txt', 'r')\ndata = file.read\nfile.close\nputs data\n```"
+      },
+      {
+        "question": "Làm thế nào để viết một hàm (function) trong PHP?",
+        "response": "Để viết một hàm trong PHP, bạn có thể sử dụng cú pháp như sau:\n\n```php\nfunction myFunction($param) {\n  // Thực hiện công việc với tham số $param\n}\n```"
+      },
+      {
+        "question": " để sử dụng toán tử so sánh '=='' trong C++?",
+        "response": "Bạn có thể sử dụng toán tử so sánh '==' trong C++ để kiểm tra sự bằng nhau của hai giá trị, ví dụ:\n\n```cpp\nint a = 5;\nint b = 5;\nif (a == b) {\n  // Hai giá trị bằng nhau\n}\n```"
+      },
+      {
+        "question": " để thực hiện ghi dữ liệu vào tệp (file) trong Java?",
+        "response": "Bạn có thể thực hiện ghi dữ liệu vào tệp trong Java bằng cách sử dụng lớp `FileWriter`, ví dụ:\n\n```java\ntry {\n  FileWriter writer = new FileWriter(\"myfile.txt\");\n  writer.write(\"Hello, World!\");\n  writer.close();\n} catch (IOException e) {\n  e.printStackTrace();\n}\n```"
+      }
+]
