@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState } from 'react'
 import axios from 'axios'
 import home from '../../assets/images/home'
 import write from '../../assets/images/write'
@@ -10,15 +8,13 @@ const Header = () => {
   const handleLogout = async () => {
     const token = localStorage.getItem('token')
     const headers = { Authorization: `Bearer ${token}` }
-    localStorage.removeItem('token')
+    
+    try {
+      await axios.delete('http://localhost:3000/api/logout', { headers })
+      localStorage.removeItem('token')
       localStorage.removeItem('user_id')
       localStorage.removeItem('role')
       window.location.href = '/login'
-
-    try {
-      await axios.delete('http://localhost:3000/api/logout', { headers })
-      
-     
     } catch (error) {
       console.log(error.response.data)
     }
@@ -35,13 +31,13 @@ const Header = () => {
               </a>
             </li>
             <li className="p-2">
-              <a className="" href="/post">
+              <a className="" href="/postform">
                 <img src={write} width={40} height={40} alt="Tao bai viet" />
               </a>
             </li>
           </ul>
         </div>
-        <button onClick={handleLogout} className="absolute right-0 p-4">
+        <button onClick={handleLogout} className="absolute right-4 p-4">
           <img src={logout} width={40} height={40} alt="logout" />
         </button>
       </div>

@@ -5,7 +5,7 @@ module Api
     skip_before_action :verify_authenticity_token
     before_action :authenticate_user!, only: [:create, :update, :destroy]
 
-    before_action :verify_admin_role, only: [:create, :update, :destroy]
+    before_action :verify_admin_role, only: [:destroy]
 
     def create
       @post = Post.new(post_params)

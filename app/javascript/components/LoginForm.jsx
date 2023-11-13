@@ -1,44 +1,44 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import axios from 'axios'
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     if (name === 'email') {
-      setEmail(value);
+      setEmail(value)
     } else if (name === 'password') {
-      setPassword(value);
+      setPassword(value)
     }
-  };
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
+    event.preventDefault()
+  
     try {
       const response = await axios.post('http://localhost:3000/users/sign_in', {
         user: {
           email,
           password,
         },
-      });
-
-      const { role, user_id } = response.data;
-      localStorage.setItem('role', role);
-      localStorage.setItem('user_id', user_id);
+      })
+  
+      const { role, user_id} = response.data
+      localStorage.setItem('role', role)
+      localStorage.setItem('user_id', user_id)
+  
       if (role === 'Admin') {
-        window.location.href = '/homeadmin';
+        window.location.href = '/homeadmin'
       } else if (role === 'User') {
-        window.location.href = '/homeuser';
+        window.location.href = '/homeuser'
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.data)
     }
-  };
-
+  }
 
   return (
     <section className='h-screen w-screen'>

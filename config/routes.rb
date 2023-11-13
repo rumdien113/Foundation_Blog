@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   get 'homeadmin', to: 'pages#homeadmin'
   get '/login', to: 'pages#login'
   get '/manageuser', to: 'pages#manageuser'
-  get 'post', to: 'pages#post'
+  get 'postform', to: 'pages#postform'
   get '/listpost' , to: 'pages#listpost'
   get '/comment' , to: 'pages#comment'
+  get '/chatform', to: 'pages#chatform'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'

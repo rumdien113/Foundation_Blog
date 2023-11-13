@@ -64,69 +64,43 @@ const PostUpdateForm = ({ postId }) => {
       window.location.reload();
     } catch (error) {
       console.log(error.response.data);
-      alert("Vui lòng đăng nhập trước khi thực hiện bất cứ quy trình nào ");
+      alert('Vui lòng đăng nhập trước khi thực hiện bất cứ quy trình nào ');
       window.location.href= '/login';
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Cập nhật bài viết</h2>
+    <div className='container mx-auto p-4'>
+      <h2 className='text-2xl font-bold mb-4'>Cập nhật bài viết</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="title" className="form-label">
-            Tiêu đề
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="form-control"
-            value={title}
-            onChange={handleTitleChange}
+        <div className='form-field mb-6'>
+          <label htmlFor='title' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>Tiêu đề</label>
+          <input type='text' id='title' name='title' value={title} onChange={handleTitleChange}
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="banner" className="form-label">
-            Banner
-          </label>
-          <input
-            type="file"
-            id="banner"
-            name="banner"
-            accept="image/*"
-            onChange={handleBannerChange}
+        <div className='form-field mb-6'>
+          <label htmlFor='banner' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>Banner</label>
+          <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            type='file' id='banner' name='banner' accept='image/*' onChange={handleBannerChange}
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="introduction" className="form-label">
+        <div className='form-field mb-6'>
+          <label htmlFor='introduction' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>
             Giới thiệu
           </label>
-          <textarea
-            id="introduction"
-            name="introduction"
-            rows="3"
-            className="form-control"
-            value={introduction}
-            onChange={handleIntroductionChange}
+          <textarea id='introduction' name='introduction' rows='3' value={introduction} onChange={handleIntroductionChange}
+            className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           ></textarea>
         </div>
-        <div className="mb-4">
-          <label htmlFor="content" className="form-label">
-            Nội dung
-          </label>
-          <textarea
-            id="content"
-            name="content"
-            rows="5"
-            className="form-control"
-            value={content}
-            onChange={handleContentChange}
-          ></textarea>
+        <div className='form-field mb-6'>
+          <label htmlFor='content' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>Nội dung</label>
+          <textarea id='content' name='content' rows='5' value={content} onChange={handleContentChange}
+            className='block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+          </textarea>
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
+        <button type='submit'
+          className='inline-flex items-center mt-4 py-2.5 px-4 text-md font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'
         >
           Cập nhật
         </button>

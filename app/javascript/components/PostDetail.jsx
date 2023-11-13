@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import HeaderAdmin from './Header';
+import HeaderAdmin from './HeaderAdmin';
 import HeaderUser from './HeaderUser';
 
 const PostDetail = () => {
@@ -10,6 +10,8 @@ const PostDetail = () => {
   const [selectedComment, setSelectedComment] = useState(null);
   const [currentUserRole, setCurrentUserRole] = useState(null);
   const [users, setUsers] = useState({}); // Khai báo state users để lưu thông tin người dùng
+
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     fetchPosts();
@@ -53,41 +55,14 @@ const PostDetail = () => {
 
   const fetchComments = (postId) => {
     axios
-      .get(`http://localhost:3000/api/posts/${postId}/show_comments`)
-      .then((response) => {
-        const comments = response.data;
-        setSelectedPost((prevPost) => ({
+      .get(`http://localhost:3000/api/posts/${postId}/comments`) 
+      .then(response => {
+        setSelectedPost(prevPost => ({
           ...prevPost,
-          comments: comments.map((comment) => ({
-            ...comment,
-            user: users[comment.user_id], // Lấy thông tin người dùng từ state users
-          })),
-        }));
-
-        // Lấy danh sách user_ids từ các bình luận để lấy thông tin người dùng
-        const user_ids = comments.map((comment) => comment.user_id);
-        // Lấy thông tin người dùng từ API hoặc từ dữ liệu hiện có (nếu đã có)
-        // Ví dụ: lấy thông tin người dùng từ API
-        user_ids.forEach((user_id) => {
-          if (!users[user_id]) {
-            axios
-              .get(`http://localhost:3000/api/users/${user_id}`)
-              .then((response) => {
-                setUsers((prevUsers) => ({
-                  ...prevUsers,
-                  [user_id]: response.data, // Lưu thông tin người dùng vào state users
-                }));
-              })
-              .catch((error) => {
-                console.log(error.response.data);
-              });
-          }
-        });
+          comments: response.data  
+        }))
       })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+  }
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -191,8 +166,7 @@ const PostDetail = () => {
 
   return (
     <div>
-      {currentUserRole === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
-      {currentUserRole === 'Admin' ? <div>Đang xem ở chế độ admin</div> : <div>Đang xem ở chế độ user</div>}
+      {role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
       <div className="container py-4">
         <div className="max-w-md mx-auto p-4">
           {posts.map((post) => (

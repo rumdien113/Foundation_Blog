@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import PostUpdateForm from './PostUpdateForm';
-import Header from './Header';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import PostUpdateForm from './PostUpdateForm'
+import Header from './HeaderAdmin'
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -48,15 +48,13 @@ const PostList = () => {
         console.log(response.data);
         setSelectedPostId(null);
         fetchPosts();
-        //alert("Success! không có bug nhé");
+        //alert('Success! không có bug nhé');
       })
       .catch((error) => {
         console.log(error.response.data);
         // Xử lý lỗi nếu cần
       });
   };
-  
-  
 
   const handleDeleteComment = (commentId) => {
     axios
@@ -78,7 +76,7 @@ const PostList = () => {
           console.log(response.data);
           setComments([]);
           fetchComments(postId);
-          alert("Success! không có bug nhé"); // Fetch comments again after deletion
+          alert('Success! không có bug nhé'); // Fetch comments again after deletion
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -98,52 +96,52 @@ const PostList = () => {
   };
 
   return (
-    <div>
+    <div className='bg-zinc-900 h-full'>
       <Header />
-      <div className="container mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4 text-center">Quản lí bài viết </h2>
+      <div className='w-9/12 mx-auto py-4 font-mono text-white'>
+        <h2 className='mb-4 text-4xl font-bold text-white'>Quản lí bài viết </h2>
         {posts.map((post) => (
-          <div key={post.id} className="mb-4 p-4 border border-gray-300 rounded">
-            <h3 className="text-lg font-bold cursor-pointer" onClick={() => handlePostClick(post.id)}>
+          <div key={post.id} className='mb-4 p-6 border border-gray-300 rounded'>
+            <h3 className='text-lg font-bold cursor-pointer' onClick={() => handlePostClick(post.id)}>
               {post.title}
             </h3>
-            <p className="text-gray-600">{post.introduction}</p>
+            <p className='text-gray-600'>{post.introduction}</p>
+            <p className='mt-4'>{post.content}</p>
             {post.banner && (
-              <img src={'http://localhost:3000' + post.banner.url} alt="Banner" className="mt-4 img-fluid" />
+              <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 img-fluid' />
             )}
-            <p className="mt-4">{post.content}</p>
             <button
               onClick={() => handleDeletePost(post.id)}
-              className="mt-4 btn btn-danger"
+              className='inline-flex items-center mt-4 py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'
             >
-              Xoá
+              Xoá bài viết
             </button>
 
             {selectedPostId !== null && selectedPostId === post.id && (
               <div>
                 {comments.length > 0 ? (
                   <div>
-                    <h4 className="text-lg font-bold mt-4">Bình luận:</h4>
+                    <h4 className='text-lg font-bold mt-4'>Bình luận:</h4>
                     {comments.map((comment) => (
-                      <div key={comment.id} className="border border-gray-300 rounded p-2 mt-2">
+                      <div key={comment.id} className='border border-gray-300 rounded p-2 mt-2'>
                         <p>{comment.content}</p>
                         <button
                           onClick={() => handleDeleteComment(comment.id)}
-                          className="mt-2 btn btn-danger"
+                          className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'
                         >
-                          Xoá
+                          Xoá bình luận
                         </button>
                       </div>
                     ))}
                     <button
                       onClick={() => handleDeleteAllComments(selectedPostId)}
-                      className="mt-4 btn btn-danger"
+                      className='inline-flex items-center mt-2 py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'
                     >
                       Xoá tất cả bình luận
                     </button>
                   </div>
                 ) : (
-                  <p className="mt-4">Không có bình luận nào cho bài viết này.</p>
+                  <p className='mt-4'>Không có bình luận nào cho bài viết này.</p>
                 )}
                 <PostUpdateForm postId={post.id} onPostUpdate={handlePostUpdate} />
               </div>

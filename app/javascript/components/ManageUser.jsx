@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom'
 import axios from 'axios';
-import Header from './Header';
+import Header from './HeaderAdmin';
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
@@ -97,92 +96,94 @@ function ManageUsers() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div>
       <Header />
-      <h1 className="text-2xl font-bold mb-4">User Management</h1>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="form-control mb-2"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control mb-2"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          placeholder="Role"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="form-control mb-2"
-        />
-        {selectedUser ? (
-          <>
-            <button
-              onClick={() =>
-                editUser(selectedUser.id, { username, email, phone, role })
-              }
-              className="btn btn-primary"
-            >
-              Update User
+      <div className='p-4 flex flex-col'>
+        <h1 className="text-2xl font-bold mb-4 text-center">User Management</h1>
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="form-control mb-2"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control mb-2"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="form-control mb-2"
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="form-control mb-2"
+          />
+          <input
+            type="text"
+            placeholder="Role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="form-control mb-2"
+          />
+          {selectedUser ? (
+            <>
+              <button
+                onClick={() =>
+                  editUser(selectedUser.id, { username, email, phone, role })
+                }
+                className="btn btn-primary"
+              >
+                Update User
+              </button>
+              <button
+                onClick={() => deleteUser(selectedUser.id)}
+                className="btn btn-danger ml-2"
+              >
+                Delete User
+              </button>
+            </>
+          ) : (
+            <button onClick={addUser} className="btn btn-success">
+              Add User
             </button>
-            <button
-              onClick={() => deleteUser(selectedUser.id)}
-              className="btn btn-danger ml-2"
-            >
-              Delete User
-            </button>
-          </>
-        ) : (
-          <button onClick={addUser} className="btn btn-success">
-            Add User
-          </button>
-        )}
-      </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr
-              key={user.id}
-              onClick={() => handleUserSelect(user)}
-              className="pointer"
-            >
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.phone}</td>
-              <td>{user.role}</td>
+          )}
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr
+                key={user.id}
+                onClick={() => handleUserSelect(user)}
+                className="pointer"
+              >
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.phone}</td>
+                <td>{user.role}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

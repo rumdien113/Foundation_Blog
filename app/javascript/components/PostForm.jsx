@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Header from './Header';
+import React, { useState } from 'react'
+import axios from 'axios'
+import HeaderAdmin from './HeaderAdmin'
+import HeaderUser from './HeaderUser'
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
@@ -8,6 +9,8 @@ const PostForm = () => {
   const [introduction, setIntroduction] = useState('');
   const [content, setContent] = useState('');
   const [bannerUrl, setBannerUrl] = useState('');
+  
+  const role = localStorage.getItem('role');
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -58,8 +61,8 @@ const PostForm = () => {
 
   return (
     <div>
-      <Header />
-      <div className='pl-96 pr-96 bg-zinc-900'>
+      {role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
+      <div className='pl-96 pr-96 bg-zinc-900 grid h-full'>
         <h2 className='block mb-2 text-4xl font-medium text-gray-900 dark:text-white'>Đăng bài viết</h2>
         <form onSubmit={handleSubmit}>
           <div className='form-field mb-6'>
@@ -68,7 +71,7 @@ const PostForm = () => {
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             />
           </div>
-
+    
           <div className='form-field mb-6'>
             <label htmlFor='banner' className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Upload file image</label>
             <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -105,14 +108,7 @@ const PostForm = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default PostForm;
-
-
-// Hậu quả của việc code quá 180p
-
-// Hôm nay tôi sẽ nói về hậu quả của việc code quá 180p/ngày
-
-// "Code quá 180 phút không phải lúc nào cũng tốt. Hãy nghỉ ngơi và tinh thần kiên nhẫn để giữ hiệu suất và sức khỏe tốt trong công việc lập trình. "

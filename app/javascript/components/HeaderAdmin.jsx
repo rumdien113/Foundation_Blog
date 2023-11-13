@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import axios from 'axios'
 import home from '../../assets/images/home'
 import write from '../../assets/images/write'
 import userManage from '../../assets/images/user_manage'
 import postManage from '../../assets/images/post_manage'
 import logout from '../../assets/images/logout'
+import home_choose from '../../assets/images/home_choose'
+import write_choose from '../../assets/images/write_choose'
+import userManage_choose from '../../assets/images/user_manage_choose'
+import postManage_choose from '../../assets/images/post_manage_choose'
 
-const Header = () => {
+const HeaderAdmin = () => {
   const handleLogout = async () => {
     const token = localStorage.getItem('token')
     const headers = { Authorization: `Bearer ${token}` }
@@ -35,7 +38,7 @@ const Header = () => {
               </a>
             </li>
             <li className="p-2">
-              <a className="" href="/post">
+              <a className="" href="/postform">
                 <img src={write} width={40} height={40} alt="Tao bai viet" />
               </a>
             </li>
@@ -51,7 +54,7 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <button onClick={handleLogout} className="absolute right-0 p-4">
+        <button onClick={handleLogout} className="absolute right-4 p-4">
           <img src={logout} width={40} height={40} alt="logout" />
         </button>
       </div>
@@ -59,4 +62,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderAdmin

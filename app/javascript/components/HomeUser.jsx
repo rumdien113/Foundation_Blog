@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import HeaderAdmin from './Header'
-import HeaderUser from './HeaderUser'
+import Header from './HeaderUser'
 
 const HomeUser = () => {
   const [posts, setPosts] = useState([]);
@@ -191,66 +188,73 @@ const HomeUser = () => {
       });
   };
 
-  return ( 
+  return (
     <div className='bg-zinc-900 h-full'>
-      {currentUserRole === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
-      {/* {currentUserRole === 'Admin' ? <div>Đang xem ở chế độ admin</div> : <div>Đang xem ở chế độ user</div>} */}
-      <div className="py-4">
-        <div className="max-w-md mx-auto p-4">
-          {posts.map((post) => (
-            <div key={post.id} className="mb-4 p-4 border border-gray-300 rounded">
-              <h3 className="text-lg font-bold" onClick={() => handlePostClick(post)}>
-                {post.title}
-              </h3>
-              <p className="text-gray-600">{post.introduction}</p>
-              
-              {/* <p className='text-white'>{post.content}</p> */}
-              {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt="Banner" className="mt-4" />}
-              {selectedPost && selectedPost.id === post.id && (
-                <>
-                  <p className="mt-4">{post.content}</p>
-                  <div>
-                    <h3>Bình luận:</h3>
-                    {selectedPost.comments ? (
-                      selectedPost.comments.map((comment) => (
-                        <div key={comment.id} onClick={() => handleCommentSelect(comment)}>
-                          <p>
-                            {comment.user && comment.user.username}: {comment.content}
-                          </p>
-                          {selectedComment && selectedComment.id === comment.id && (
-                            <div>
-                              <textarea
-                                value={selectedComment.content}
-                                onChange={(e) => setSelectedComment({ ...selectedComment, content: e.target.value })}
-                                className="form-control mb-2"
-                              />
-                              <button onClick={() => handleCommentEdit(comment.id, selectedComment.content)} className="btn btn-success me-2">
-                                Lưu
-                              </button>
-                              <button onClick={() => handleDeleteClick(comment)} className="btn btn-danger">
-                                Xoá
-                              </button>
+      <Header/>
+      <div className="w-9/12 mx-auto py-4">
+        {posts.map((post) => (
+          <div key={post.id} className="mb-4 p-6 border border-gray-300 rounded">
+            <h3 className="text-3xl font-bold text-white" onClick={() => handlePostClick(post)}>{post.title}</h3>
+            <p className="text-slate-400">{post.introduction}</p>
+            <p className="mt-4 text-white">{post.content}</p>
+            {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt="Banner" className="mt-4" />}
+            {selectedPost && selectedPost.id === post.id && (
+              <>
+                <div className='mt-4'>
+                  <h3 className='text-white'>Bình luận:</h3>
+                  {selectedPost.comments ? (
+                    selectedPost.comments.map((comment) => (
+                      <div key={comment.id} onClick={() => handleCommentSelect(comment)}>
+                        <p className='text-white'>
+                          {comment.user && comment.user.username}: {comment.content}
+                        </p>
+                        {selectedComment && selectedComment.id === comment.id && (
+                          <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                <textarea id="comment" rows="2" placeholder="Viết bình luận của bạn ở đây..." 
+                                  value={selectedComment.content} 
+                                  onChange={(e) => setSelectedComment({ ...selectedComment, content: e.target.value })}
+                                  className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400">
+                                </textarea>
                             </div>
-                          )}
-                        </div>
-                      ))
-                    ) : (
-                      <p>Không có bình luận</p>
-                    )}
+                            <div class="flex flex-row items-center gap-4 px-3 py-2 mt-2 border-t dark:border-gray-600">
+                                <button type="submit" onClick={() => handleCommentEdit(comment.id, selectedComment.content)}
+                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                    Lưu
+                                </button>
+                                <button type="submit" onClick={() => handleDeleteClick(comment)}
+                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                    Xóa
+                                </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p>Không có bình luận</p>
+                  )}
+                </div>
+
+                <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                  <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                      <label htmlFor="comment" className="sr-only">Your comment</label>
+                      <textarea id="comment" rows="2" placeholder="Viết bình luận của bạn ở đây..." value={newComment} onChange={handleCommentChange}
+                        className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"></textarea>
                   </div>
-                  <div>
-                    <textarea value={newComment} onChange={handleCommentChange} className="form-control mb-2" />
-                    <button onClick={handleCommentSubmit} className="btn btn-primary">
-                      Gửi bình luận
-                    </button>
+                  <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                      <button type="submit" onClick={handleCommentSubmit}
+                        className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                          Bình luận
+                      </button>
                   </div>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
       </div>
-    </div> 
+    </div>
   )
 }
 
