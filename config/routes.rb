@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'postform', to: 'pages#postform'
   get '/listpost' , to: 'pages#listpost'
   get '/comment' , to: 'pages#comment'
+  get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
   get '/chatform', to: 'pages#chatform'
   devise_for :users, controllers: {
     sessions: 'users/sessions',

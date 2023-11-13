@@ -49,7 +49,18 @@ class Api::CommentsController < ApplicationController
     end
   end
   
-
+  def show_comments_for_post
+    post_id = params[:post_id]
+  
+    comments = Comment.where(post_id: post_id)
+  
+    render json: comments.map { |comment|
+      {
+        username: User.find(comment.user_id).username, 
+        content: comment.content
+      }
+    }, status: :ok
+  end
 
   def destroy_all
     if current_user && current_user.Admin?
