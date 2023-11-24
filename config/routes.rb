@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   namespace :api, defaults: { format: :json } do
+    resources :users do
+      get '/profile/:id', to: 'users#show_profile', on: :collection 
+    end
     resources :users, only: [:index, :create, :show, :update, :destroy]
     post '/login', to: 'users#login'
     delete '/logout', to: 'users#logout'

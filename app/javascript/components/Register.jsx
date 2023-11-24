@@ -5,7 +5,7 @@ import axios from 'axios';
 // import { Link } from 'react-router-dom';
 
 function Register() {
-  
+
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -13,6 +13,7 @@ function Register() {
     password_confirmation: '',
     phone: '',
     role: '',
+    avatar: 'default_avatar.png', // Thêm trường avatar vào state để lưu trữ file
   });
 
   const handleInputChange = (event) => {
@@ -22,8 +23,16 @@ function Register() {
       [name]: value,
     }));
   };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Lấy file từ event
+    setFormData((prevData) => ({
+      ...prevData,
+      avatar: file, // Gán file vào trường avatar trong formData
+    }));
+  };
+  
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (formData.password !== formData.password_confirmation) {
@@ -36,16 +45,19 @@ function Register() {
       return;
     }
 
-    axios
-      .post('http://localhost:3000/api/users', { user: formData })
-      .then((response) => {
-        console.log(response.data);
-        alert('Đăng ký thành công! Vui lòng đăng nhập.');
-        window.location.href= '/login'
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(`user[${key}]`, value);
+    });
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/users', formDataToSend);
+      console.log(response.data);
+      alert('Đăng ký thành công! Vui lòng đăng nhập.');
+      window.location.href = '/login';
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   return (
@@ -53,7 +65,7 @@ function Register() {
       <div className="card p-4 w-50 min-w-md">
         <h2 className="text-center font-weight-bold mb-4">Đăng ký</h2>
         <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+          <div className="mb-4">
             <label htmlFor="username" className="form-label mb-2 font-weight-bold">
               Tên người dùng
             </label>
@@ -131,6 +143,19 @@ function Register() {
               onChange={handleInputChange}
             />
           </div>
+          <div className="mb-4">
+            <label htmlFor="avatar" className="form-label mb-2 font-weight-bold">
+              Ảnh đại diện
+            </label>
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              className="form-control"
+              onChange={handleFileChange} // Tạo hàm handleFileChange để xử lý khi người dùng chọn file
+            />
+          </div>
+
           <button
             type="submit"
             className="btn btn-primary btn-block"
