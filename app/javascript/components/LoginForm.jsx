@@ -36,6 +36,7 @@ const LoginForm = () => {
         window.location.href = '/homeuser'
       }
     } catch (error) {
+      alert('Đăng nhập thất bại, vui lòng kiểm tra lại email hoặc password')
       console.log(error.response.data)
     }
   }

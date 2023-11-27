@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import home from '../../assets/images/home'
 import write from '../../assets/images/write'
 import userManage from '../../assets/images/user_manage'
 import postManage from '../../assets/images/post_manage'
+import chat from '../../assets/images/chat'
 import logout from '../../assets/images/logout'
 import home_choose from '../../assets/images/home_choose'
 import write_choose from '../../assets/images/write_choose'
@@ -28,35 +28,42 @@ const HeaderAdmin = () => {
   }
 
   return (
-    <nav className="bg-zinc-800 w-screen items-center border-b-2">
-      <div className="w-full flex relative">
-        <div className="w-full" id="">
-          <ul className="flex justify-center m-2 gap-40 text-white">
-            <li className="p-2">
-              <a className="" href="/homeadmin">
-                <img src={home} width={40} height={40} alt="Trang chu" />
+    <nav className='bg-zinc-800 w-full items-center border-b-2 t-0 z-10 fixed'>
+      <div className='w-full flex relative'>
+        <div className='w-full' id=''>
+          <ul className='flex justify-center m-2 gap-40 text-white'>
+            <li className='p-2'>
+              <a href='/homeadmin'>
+                <img src={home} width={25} height={25} alt='Trang chu' />
               </a>
             </li>
-            <li className="p-2">
-              <a className="" href="/postform">
-                <img src={write} width={40} height={40} alt="Tao bai viet" />
+            <li className='p-2'>
+              <a href='/postform'>
+                <img src={write} width={25} height={25} alt='Tao bai viet' />
               </a>
             </li>
-            <li className="p-2">
-              <a className="" href="/manageuser">
-                <img src={userManage} width={40} height={40} alt="Quan li nguoi dung" />
+            <li className='p-2'>
+              <a href='/manageuser'>
+                <img src={userManage} width={25} height={25} alt='Quan li nguoi dung' />
               </a>
             </li>
-            <li className="p-2">
-              <a className="" href="/listpost">
-              <img src={postManage} width={40} height={40} alt="Quan li bai viet" />
+            <li className='p-2'>
+              <a href='/listpost'>
+              <img src={postManage} width={25} height={25} alt='Quan li bai viet' />
               </a>
+            </li>
+            <li className='p-2'>
+              <a href='/chatform'>
+              <img src={chat} width={25} height={25} alt='Chat bot' />
+              </a>
+            </li>
+            <li>
+              <button onClick={handleLogout} className='fixed p-2 right-4'>
+                <img src={logout} width={25} height={25} alt='logout' />
+              </button>
             </li>
           </ul>
         </div>
-        <button onClick={handleLogout} className="absolute right-4 p-4">
-          <img src={logout} width={40} height={40} alt="logout" />
-        </button>
       </div>
     </nav>
   )

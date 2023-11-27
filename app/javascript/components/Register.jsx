@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-// import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import axios from 'axios'
 
 function Register() {
   
@@ -10,40 +9,40 @@ function Register() {
     password: '',
     password_confirmation: '',
     phone: ''
-  });
+  })
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (formData.password !== formData.password_confirmation) {
-      console.log('Xác nhận mật khẩu không khớp');
-      return;
+      console.log('Xác nhận mật khẩu không khớp')
+      return
     }
 
     if (!formData.email || !formData.username || !formData.password || !formData.phone) {
-      console.log('Vui lòng điền đầy đủ thông tin');
-      return;
+      console.log('Vui lòng điền đầy đủ thông tin')
+      return
     }
 
     axios
       .post('http://localhost:3000/api/users', { user: formData })
       .then((response) => {
-        console.log(response.data);
-        alert('Đăng ký thành công! Vui lòng đăng nhập.');
+        console.log(response.data)
+        alert('Đăng ký thành công! Vui lòng đăng nhập.')
         window.location.href= '/login'
       })
       .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+        console.log(error.response.data)
+      })
+  }
 
   return (
     <section className='h-screen w-screen'>
@@ -52,8 +51,8 @@ function Register() {
           {/* component left */}
           <div className='mb-12 md:mb-0 md:w-8/12 lg:w-6/12'>
             <img 
-              src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-              alt="Sample image"
+              src='https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp'
+              alt='Sample image'
               className='w-full'
             />
           </div>
@@ -117,19 +116,19 @@ function Register() {
                 />
               </div>
 
-              <button type='submit' className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 w-full overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                <span className="relative px-5 py-2 w-full transition-all text-xl ease-in duration-75 text-black hover:text-white bg-white bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              <button type='submit' className='relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 w-full overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'>
+                <span className='relative px-5 py-2 w-full transition-all text-xl ease-in duration-75 text-black hover:text-white bg-white bg-gray-900 rounded-md group-hover:bg-opacity-0'>
                     Sign up
                 </span>
               </button>
 
-              <p className="mb-0 mt-2 pt-1 text-sm font-medium">
+              <p className='mb-0 mt-2 pt-1 text-sm font-medium'>
               Have an account?
-                <a href="/login" className="text-blue-500 transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-700 active:text-blue-700"> Login </a>
+                <a href='/login' className='text-blue-500 transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-700 active:text-blue-700'> Login </a>
               </p>
 
-              <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-600">
+              <div className='my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300'>
+                <p className='mx-4 mb-0 text-center font-semibold dark:text-neutral-600'>
                   OR
                 </p>
               </div>

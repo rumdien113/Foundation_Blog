@@ -3,102 +3,102 @@ import axios from 'axios'
 import PostUpdateForm from './PostUpdateForm'
 import Header from './HeaderAdmin'
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const [selectedPostId, setSelectedPostId] = useState(null);
-  const [comments, setComments] = useState([]);
+const PostManage = () => {
+  const [posts, setPosts] = useState([])
+  const [selectedPostId, setSelectedPostId] = useState(null)
+  const [comments, setComments] = useState([])
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
 
   // Tạo headers chứa token
   const headers = {
     Authorization: `Bearer ${token}`,
-  };
+  }
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    fetchPosts()
+  }, [])
 
   const fetchPosts = () => {
     axios
       .get('http://localhost:3000/api/posts')
       .then((response) => {
-        setPosts(response.data);
+        setPosts(response.data)
       })
       .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+        console.log(error.response.data)
+      })
+  }
 
   const fetchComments = (postId) => {
     axios
       .get(`http://localhost:3000/api/posts/${postId}/show_comments`)
       .then((response) => {
-        setComments(response.data);
+        setComments(response.data)
       })
       .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+        console.log(error.response.data)
+      })
+  }
 
   const handleDeletePost = (postId) => {
     axios
       .delete(`http://localhost:3000/api/posts/${postId}`)
       .then((response) => {
-        console.log(response.data);
-        setSelectedPostId(null);
-        fetchPosts();
-        //alert('Success! không có bug nhé');
+        console.log(response.data)
+        setSelectedPostId(null)
+        fetchPosts()
+        //alert('Success! không có bug nhé')
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.log(error.response.data)
         // Xử lý lỗi nếu cần
-      });
-  };
+      })
+  }
 
   const handleDeleteComment = (commentId) => {
     axios
       .delete(`http://localhost:3000/api/comments/${commentId}`, { headers })
       .then((response) => {
-        console.log(response.data);
-        setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
+        console.log(response.data)
+        setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId))
       })
       .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
+        console.log(error.response.data)
+      })
+  }
 
   const handleDeleteAllComments = (postId) => {
     if (postId) {
       axios
         .delete(`http://localhost:3000/api/posts/${postId}/delete_all_comments`)
         .then((response) => {
-          console.log(response.data);
-          setComments([]);
-          fetchComments(postId);
-          alert('Success! không có bug nhé'); // Fetch comments again after deletion
+          console.log(response.data)
+          setComments([])
+          fetchComments(postId)
+          alert('Success! không có bug nhé') // Fetch comments again after deletion
         })
         .catch((error) => {
-          console.log(error.response.data);
-          window.location.href= '/login';
-        });
+          console.log(error.response.data)
+          window.location.href= '/login'
+        })
     }
-  };
+  }
 
   const handlePostClick = (postId) => {
-    setSelectedPostId(postId);
-    fetchComments(postId);
-  };
+    setSelectedPostId(postId)
+    fetchComments(postId)
+  }
 
   const handlePostUpdate = () => {
-    fetchPosts();
-    setSelectedPostId(null);
-  };
+    fetchPosts()
+    setSelectedPostId(null)
+  }
 
   return (
     <div className='bg-zinc-900 h-full'>
       <Header />
-      <div className='w-9/12 mx-auto py-4 font-mono text-white'>
+      <div className='w-9/12 mx-auto py-4 font-mono text-white pt-20'>
         <h2 className='mb-4 text-4xl font-bold text-white'>Quản lí bài viết </h2>
         {posts.map((post) => (
           <div key={post.id} className='mb-4 p-6 border border-gray-300 rounded'>
@@ -108,7 +108,7 @@ const PostList = () => {
             <p className='text-gray-600'>{post.introduction}</p>
             <p className='mt-4'>{post.content}</p>
             {post.banner && (
-              <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 img-fluid' />
+              <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 object-fill w-96' />
             )}
             <button
               onClick={() => handleDeletePost(post.id)}
@@ -150,7 +150,7 @@ const PostList = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PostList;
+export default PostManage

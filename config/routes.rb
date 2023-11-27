@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/login', to: 'pages#login'
   get '/manageuser', to: 'pages#manageuser'
   get 'postform', to: 'pages#postform'
-  get '/listpost' , to: 'pages#listpost'
+  get '/listpost' , to: 'pages#postmanage'
   get '/comment' , to: 'pages#comment'
   get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
   get '/chatform', to: 'pages#chatform'

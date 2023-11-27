@@ -4,65 +4,64 @@ import HeaderAdmin from './HeaderAdmin'
 import HeaderUser from './HeaderUser'
 
 const PostForm = () => {
-  const [title, setTitle] = useState('');
-  const [banner, setBanner] = useState(null);
-  const [introduction, setIntroduction] = useState('');
-  const [content, setContent] = useState('');
-  const [bannerUrl, setBannerUrl] = useState('');
+  const [title, setTitle] = useState('')
+  const [banner, setBanner] = useState(null)
+  const [introduction, setIntroduction] = useState('')
+  const [content, setContent] = useState('')
+  const [bannerUrl, setBannerUrl] = useState('')
   
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem('role')
 
   const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
+    setTitle(event.target.value)
+  }
 
   const handleBannerChange = (event) => {
-    setBanner(event.target.files[0]);
-  };
+    setBanner(event.target.files[0])
+  }
 
   const handleIntroductionChange = (event) => {
-    setIntroduction(event.target.value);
-  };
+    setIntroduction(event.target.value)
+  }
 
   const handleContentChange = (event) => {
-    setContent(event.target.value);
-  };
+    setContent(event.target.value)
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
   
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('banner', banner);
-    formData.append('introduction', introduction);
-    formData.append('content', content);
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('banner', banner)
+    formData.append('introduction', introduction)
+    formData.append('content', content)
   
     // // Lấy user_id từ localStorage
-    // const userId = localStorage.getItem('user_id');
-    // formData.append('user_id', userId);
+    // const userId = localStorage.getItem('user_id')
+    // formData.append('user_id', userId)
   
     try {
       const response = await axios.post('http://localhost:3000/api/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      });
-      const bannerUrl = 'http://localhost:3000' + response.data.bannerUrl;
-      setBannerUrl(bannerUrl);
-      console.log(bannerUrl);
-      alert('Success! không có bug nhé');
+      })
+      const bannerUrl = 'http://localhost:3000' + response.data.bannerUrl
+      setBannerUrl(bannerUrl)
+      console.log(bannerUrl)
+      alert('Success! không có bug nhé')
     } catch (error) {
-      console.log(error.response.data);
-      alert(' Server lỗi rồi cu ơi :))');
-      //window.location.href= '/login';
+      console.log(error.response.data)
+      alert(' Server lỗi rồi cu ơi :))')
+      //window.location.href= '/login'
     }
-  };
+  }
   
-
   return (
     <div>
-      {role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
-      <div className='pl-96 pr-96 bg-zinc-900 grid h-full'>
+      {role === 'Admin' ? <HeaderAdmin/> : <HeaderUser/>}
+      <div className='pl-96 pr-96 bg-zinc-900 grid h-full h-screen pt-20 font-mono'>
         <h2 className='block mb-2 text-4xl font-medium text-gray-900 dark:text-white'>Đăng bài viết</h2>
         <form onSubmit={handleSubmit}>
           <div className='form-field mb-6'>
@@ -111,4 +110,4 @@ const PostForm = () => {
   )
 }
 
-export default PostForm;
+export default PostForm
