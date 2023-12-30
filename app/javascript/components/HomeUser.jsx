@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Header from './HeaderUser'
- 
+import { IoClose } from 'react-icons/io5'
+
 const HomeUser = () => {
   const [posts, setPosts] = useState([])
   const [selectedPost, setSelectedPost] = useState(null)
@@ -9,6 +10,7 @@ const HomeUser = () => {
   const [selectedComment, setSelectedComment] = useState(null)
   const [currentUserRole, setCurrentUserRole] = useState(null)
   const [users, setUsers] = useState({}) // Khai báo state users để lưu thông tin người dùng
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     fetchPosts()
@@ -47,7 +49,9 @@ const HomeUser = () => {
 
   const handlePostClick = (post) => {
     setSelectedPost(post)
+    console.log(selectedPost)
     fetchComments(post.id)
+    setIsOpen(!isOpen)
   }
 
   const fetchComments = (postId) => {
@@ -190,70 +194,78 @@ const HomeUser = () => {
 
   return (
     <div className='bg-zinc-900 h-full'>
-      <Header/>
-      <div className='w-9/12 mx-auto py-4 pt-20 font-mono'>
-        { posts.reverse().map((post) => (
-          <div key={post.id} className='mb-4 p-6 border border-gray-300 rounded'>
-            <h3 className='text-3xl font-bold text-white' onClick={() => handlePostClick(post)}>{post.title}</h3>
+      <Header />
+      <div className='w-6/12 mx-auto py-4 pt-20 font-mono'>
+        {[...posts].reverse().map((post) => (
+          <div
+            key={post.id}
+            className='mb-4 p-6 border border-gray-300 rounded'
+            onClick={() => handlePostClick(post)}
+          >
+            <h3 className='text-3xl font-bold text-white'>{post.title}</h3>
             <p className='text-slate-400'>{post.introduction}</p>
             <p className='mt-4 text-white'>{post.content}</p>
-            {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4' />}
-            {selectedPost && selectedPost.id === post.id && (
-              <>
-                <div className='mt-4'>
-                  <h3 className='text-white'>Bình luận:</h3>
-                  {selectedPost.comments ? (
-                    selectedPost.comments.map((comment) => (
-                      <div key={comment.id} onClick={() => handleCommentSelect(comment)}>
-                        <p className='text-white'>
-                          {comment.user && comment.user.username}: {comment.content}
-                        </p>
-                        {selectedComment && selectedComment.id === comment.id && (
-                          <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
-                            <div className='px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
-                                <textarea id='comment' rows='2' placeholder='Viết bình luận của bạn ở đây...' 
-                                  value={selectedComment.content} 
-                                  onChange={(e) => setSelectedComment({ ...selectedComment, content: e.target.value })}
-                                  className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'>
-                                </textarea>
-                            </div>
-                            <div class='flex flex-row items-center gap-4 px-3 py-2 mt-2 border-t dark:border-gray-600'>
-                                <button type='submit' onClick={() => handleCommentEdit(comment.id, selectedComment.content)}
-                                  className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'>
-                                    Lưu
-                                </button>
-                                <button type='submit' onClick={() => handleDeleteClick(comment)}
-                                  className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'>
-                                    Xóa
-                                </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))
-                  ) : (
-                    <p>Không có bình luận</p>
-                  )}
-                </div>
-
-                <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
-                  <div className='px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
-                      <label htmlFor='comment' className='sr-only'>Your comment</label>
-                      <textarea id='comment' rows='2' placeholder='Viết bình luận của bạn ở đây...' value={newComment} onChange={handleCommentChange}
-                        className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'></textarea>
-                  </div>
-                  <div class='flex items-center justify-between px-3 py-2 border-t dark:border-gray-600'>
-                      <button type='submit' onClick={handleCommentSubmit}
-                        className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'>
-                          Bình luận
-                      </button>
-                  </div>
-                </div>
-              </>
-            )}
+            {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 w-full' />}
           </div>
         ))}
+        {isOpen && selectedPost && (
+          <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black'>
+            <div className='flex flex-row relative'>
+              <IoClose 
+                onClick={() => setIsOpen(!isOpen)}
+                className='absolute text-white items-center justify-center text-4xl z-30' />
+              {/* image */}
+              <div className='flex items-center justify-center w-8/12 h-dvh'>
+                {selectedPost.banner && 
+                  <img 
+                    src={'http://localhost:3000' + selectedPost.banner.url}
+                    alt='Banner' 
+                    className='w-full h-full object-contain items-center justify-center' 
+                  />
+                }
+              </div>
+              {/* title */}
+              <div className='p-4 w-4/12 h-screen bg-[#242526] border-b-1'>
+                <h3 className='text-3xl font-bold text-white'>{selectedPost.title}</h3>
+                <p className='text-slate-400'>{selectedPost.introduction}</p>
+                <p className='mt-4 text-white'>{selectedPost.content}</p>
+              </div>
+              {/* comment */}
+              {/* <div className='w-4/12 h-screen bg-[#242526]'>
+                <div className='flex flex-col justify-between h-full'>
+                  <div className='overflow-y-auto'>
+                    {selectedPost.comments.map((comment) => (
+                      <div
+                        key={comment.id}
+                        className='mb-4 p-6 border border-gray-300 rounded'
+                        onClick={() => handleCommentSelect(comment)}
+                      >
+                        <p className='text-white'>{comment.content}</p>
+                        <p className='text-slate-400'>{comment.user && comment.user.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className='flex flex-col justify-center items-center'>
+                    <textarea
+                      className='w-10/12 h-20 p-4 border border-gray-300 rounded'
+                      placeholder='Viết bình luận...'
+                      value={newComment}
+                      onChange={handleCommentChange}
+                    />
+                    <button
+                      className='w-10/12 h-10 mt-4 bg-blue-500 text-white rounded'
+                      onClick={handleCommentSubmit}
+                    >
+                      Gửi
+                    </button>
+                  </div>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        )}
       </div>
+
     </div>
   )
 }
