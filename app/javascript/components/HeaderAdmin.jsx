@@ -4,7 +4,7 @@ import home from '../../assets/images/home'
 import write from '../../assets/images/write'
 import userManage from '../../assets/images/user_manage'
 import postManage from '../../assets/images/post_manage'
-import chat from '../../assets/images/chat'
+import profile from '../../assets/images/profile'
 import logout from '../../assets/images/logout'
 import home_choose from '../../assets/images/home_choose'
 import write_choose from '../../assets/images/write_choose'
@@ -53,8 +53,8 @@ const HeaderAdmin = () => {
               </a>
             </li>
             <li className='p-2'>
-              <a href='/chatform'>
-              <img src={chat} width={25} height={25} alt='Chat bot' />
+              <a className='' href='/profile'>
+                <img src={profile} width={25} height={25} alt='Chat bot' />
               </a>
             </li>
             <li>

@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import home from '../../assets/images/home'
 import write from '../../assets/images/write'
-import chat from '../../assets/images/chat'
+import profile from '../../assets/images/profile'
 import logout from '../../assets/images/logout'
 
 const Header = () => {
@@ -37,8 +37,8 @@ const Header = () => {
               </a>
             </li>
             <li className='p-2'>
-              <a className='' href='/chatform'>
-                <img src={chat} width={25} height={25} alt='Chat bot' />
+              <a className='' href='/profile'>
+                <img src={profile} width={25} height={25} alt='Chat bot' />
               </a>
             </li>
           </ul>

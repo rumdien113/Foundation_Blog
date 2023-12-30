@@ -9,7 +9,17 @@ import ManageUsers from '../components/ManageUser'
 import PostForm from '../components/PostForm'
 import PostManage from '../components/PostManage'
 import PostDetail from '../components/PostDetail'
-import ChatForm from '../components/ChatForm'
+import Profile from '../components/Profile'
 ReactOnRails.register({
-  LoginForm, Register, HomeUser, App, HeaderUser, HomeAdmin, ManageUsers, PostForm, PostManage, PostDetail, ChatForm,
+  LoginForm,
+  Register,
+  HomeUser,
+  App,
+  HeaderUser,
+  HomeAdmin,
+  ManageUsers,
+  PostForm,
+  PostManage,
+  PostDetail,
+  Profile,
 })

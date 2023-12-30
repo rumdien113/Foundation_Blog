@@ -11,12 +11,17 @@ Rails.application.routes.draw do
   get '/listpost' , to: 'pages#postmanage'
   get '/comment' , to: 'pages#comment'
   get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
-  get '/chatform', to: 'pages#chatform'
+  get '/profile', to: 'pages#profile'
+  get 'posts/my', to: 'api/posts#my_posts'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   namespace :api, defaults: { format: :json } do
+    resources :users do
+      get '/profile/:id', to: 'users#show_profile', on: :collection 
+    end
+    
     resources :users, only: [:index, :create, :show, :update, :destroy]
     post '/login', to: 'users#login'
     delete '/logout', to: 'users#logout'

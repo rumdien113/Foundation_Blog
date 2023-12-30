@@ -1,6 +1,7 @@
 module Api
   class PostsController < ApplicationController
     include Devise::Controllers::Helpers
+    # before_action :verify_author, only: [:update, :destroy]
 
     skip_before_action :verify_authenticity_token
     before_action :authenticate_user!, only: [:create, :update, :destroy]
@@ -9,6 +10,7 @@ module Api
 
     def create
       @post = Post.new(post_params)
+      @post.user_id = current_user.id
 
       if @post.save
         render json: { bannerUrl: @post.banner.url }, status: :created
@@ -58,8 +60,6 @@ module Api
       end
     end
     
-    
-
     def show_comments
       begin
         post = Post.find(params[:id])
@@ -74,12 +74,21 @@ module Api
         render json: { error: 'Có lỗi xảy ra' }, status: :internal_server_error
       end
     end
-    
+    def my_posts
+      @posts = Post.where(user_id: current_user.id)
+      
+      render json: @posts
+    end
 
     private
-
+    def verify_author
+      @post = Post.find(params[:id])
+      unless current_user == @post.user
+        render json: { error: 'Bạn không có quyền' } 
+      end
+    end
     def post_params
-      params.permit(:title, :introduction, :content, :banner)
+      params.permit(:title, :introduction, :content, :banner, :user_id)
     end
 
     def verify_admin_role

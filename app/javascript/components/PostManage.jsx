@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PostUpdateForm from './PostUpdateForm'
 import Header from './HeaderAdmin'
+import ReactHtmlParser from 'react-html-parser'
 
 const PostManage = () => {
   const [posts, setPosts] = useState([])
@@ -96,19 +97,21 @@ const PostManage = () => {
   }
 
   return (
-    <div className='bg-zinc-900 h-full'>
+    <div className='bg-zinc-900'>
       <Header />
-      <div className='w-9/12 mx-auto py-4 font-mono text-white pt-20'>
+      <div className='w-7/12 mx-auto h-full py-4 font-[inherit] text-white pt-20'>
         <h2 className='mb-4 text-4xl font-bold text-white'>Quản lí bài viết </h2>
         {posts.map((post) => (
-          <div key={post.id} className='mb-4 p-6 border border-gray-300 rounded'>
-            <h3 className='text-lg font-bold cursor-pointer' onClick={() => handlePostClick(post.id)}>
-              {post.title}
-            </h3>
-            <p className='text-gray-600'>{post.introduction}</p>
-            <p className='mt-4'>{post.content}</p>
+          <div 
+            key={post.id}
+            className='mb-4 p-6 border border-gray-300 rounded'
+            onClick={() => handlePostClick(post.id)}
+          >
+            <h3 className='text-lg font-bold cursor-pointer'>{post.title}</h3>
+            <p className='text-gray-400'>{post.introduction}</p>
+            <p className='mt-4 text-white'>{ReactHtmlParser(post.content)}{' '}</p>
             {post.banner && (
-              <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 object-fill w-96' />
+              <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 w-full' />
             )}
             <button
               onClick={() => handleDeletePost(post.id)}

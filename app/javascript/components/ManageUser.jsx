@@ -75,11 +75,10 @@ function ManageUsers() {
   return (
     <div>
       <Header />
-      <div className='relative bg-zinc-900 h-full h-screen pt-20 font-mono px-4'>
+      <div className='relative bg-zinc-900 h-screen pt-20 font-[inherit] px-4'>
         <h1 className='absolute text-4xl font-bold mb-8 left-10 text-white'>Quản lý người dùng</h1><br />
-
         <form>
-          <div className='flex inline-block gap-x-4 text-lg mt-8'>
+          <div className='flex gap-x-4 text-lg mt-8'>
             <div>
               <label htmlFor='username' className='block font-medium text-white'>
                 Username
@@ -156,7 +155,7 @@ function ManageUsers() {
               <th className='px-4 py-2'>Action</th>
             </tr>
           </thead>
-          <tbody className='text-xl font-light'>
+          <tbody className='text-xl font-normal'>
             {users.map((user) => (
               <tr key={user.id} className='even:bg-neutral-900 odd:bg-neutral-800'>
                 <td className='px-4'>{user.id}</td>
@@ -166,14 +165,14 @@ function ManageUsers() {
                 <td className='px-4'>{user.role}</td>
                 <td className='px-4'>
                   <button
-                    className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full my-1.5'
+                    className='bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded-full my-1.5'
                     onClick={() => handleUserSelect(user)}
                   >
                     Edit
                   </button>
                   &ensp;
                   <button
-                    className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full my-1.5'
+                    className='bg-red-500 hover:bg-red-700 text-white font-normal py-2 px-4 rounded-full my-1.5'
                     onClick={() => deleteUser(selectedUser.id)}
                   >
                     Delete
