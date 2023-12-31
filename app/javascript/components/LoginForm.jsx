@@ -58,7 +58,7 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit}>
               {/* NAME */}
               <div className='relative mb-6'>
-                <span className='font-sans text-8xl font-semibold font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500'>
+                <span className='font-sans text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500'>
                   Blogger
                 </span>
               </div>

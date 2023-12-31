@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  mount_uploader :avatar, AvatarUploader
+  has_many :posts
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable,:omniauthable, omniauth_providers: [:google_oauth2]
   def self.from_google(u)
     random_phone = '%010d' % rand(10**10) # Tạo số điện thoại ngẫu nhiên 10 chữ số

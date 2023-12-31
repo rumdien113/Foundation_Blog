@@ -3,6 +3,7 @@ import axios from 'axios'
 import Header from './HeaderAdmin'
 import ReactHtmlParser from 'react-html-parser'
 import { IoClose } from 'react-icons/io5'
+import default_avatar from '../../assets/images/default_avatar.png'
 
 const HomeAdmin = () => {
   const [posts, setPosts] = useState([])
@@ -13,13 +14,15 @@ const HomeAdmin = () => {
   const [users, setUsers] = useState({}) // Khai báo state users để lưu thông tin người dùng
   const [isOpen, setIsOpen] = useState(false)
   const [listUser, setListUser] = useState([])
+  const user_id = localStorage.getItem('user_id')
   
   // Lấy danh sách người dùng
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get('http://localhost:3000/api/users')
-        setListUser(res.data)
+        const users = res.data.filter(user => user.id != user_id)
+        setListUser(users)
       }
       catch (err) {
         console.log(err)
@@ -325,18 +328,25 @@ const HomeAdmin = () => {
         </div>
 
         {/* list users */}
-        <div className='fixed w-2/12 max-h-screen border border-l-1 top-0 bottom-0'>
-          <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
-            {listUser.map((user) => (
-              <div
-                key={user.id}
-                className='w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
-              >
-                <p className='text-xl font-bold text-white'>{user.username}</p>
-              </div>
-            ))}
+        {!isOpen && (
+          <div className='fixed w-2/12 max-h-screen border border-l-1 top-0 bottom-0'>
+            <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
+              {listUser.map((user) => (
+                <div
+                  key={user.id}
+                  className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
+                >
+                  <img 
+                    src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
+                    alt='Avatar'
+                    className='w-10 h-10 rounded-full mr-4'
+                  />
+                  <p className='text-xl font-semibold text-white'>{user.username}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

@@ -13,13 +13,15 @@ const HomeUser = () => {
   const [users, setUsers] = useState({}) // Khai báo state users để lưu thông tin người dùng
   const [isOpen, setIsOpen] = useState(false)
   const [listUser, setListUser] = useState([])
+  const user_id = localStorage.getItem('user_id')
 
   // Lấy danh sách người dùng
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get('http://localhost:3000/api/users')
-        setListUser(res.data)
+        const users = res.data.filter(user => user.id != user_id)
+        setListUser(users)
       }
       catch (err) {
         console.log(err)
@@ -235,16 +237,19 @@ const HomeUser = () => {
             >
               <h3 className='text-3xl font-bold text-white'>{post.title}</h3>
               <p className='text-slate-400'>{post.introduction}</p>
-              <p className='mt-4 text-white'>{ReactHtmlParser(post.content)}{" "}</p>
+              <p className='mt-4 text-white'>{ReactHtmlParser(post.content)}{' '}</p>
               {post.banner && <img src={'http://localhost:3000' + post.banner.url} alt='Banner' className='mt-4 w-full' />}
             </div>
           ))}
           {isOpen && selectedPost && (
             <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black'>
               <div className='flex flex-row relative'>
-                <IoClose
-                  onClick={() => setIsOpen(!isOpen)}
-                  className='absolute text-white items-center justify-center text-4xl z-30 cursor-pointer' />
+                <div className='absolute hover:bg-gray-600/50 p-2 m-2 rounded-full z-30'>
+                  <IoClose
+                    onClick={() => setIsOpen(!isOpen)}
+                    className='text-white hover:text-gray-300 items-center justify-center font-extrabold text-4xl cursor-pointer' 
+                  />
+                </div>
                 {/* image */}
                 <div className='flex items-center justify-center w-8/12 h-dvh'>
                   {selectedPost.banner &&
@@ -263,7 +268,7 @@ const HomeUser = () => {
                     <p className='text-slate-400'>{selectedPost.introduction}</p>
 
                     {/* đây nè nha */}
-                    <p className="ext-3xl font-bold text-white">{ReactHtmlParser(selectedPost.content)}{" "}</p>          
+                    <p className='ext-3xl font-bold text-white'>{ReactHtmlParser(selectedPost.content)}{' '}</p>          
                   </div>
                   {/* comment */}
                   <div className='mt-4'>
@@ -322,18 +327,25 @@ const HomeUser = () => {
         </div>
 
         {/* list users */}
-        <div className='fixed w-2/12 max-h-screen border border-l-1 top-0 bottom-0'>
-          <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
-            {listUser.map((user) => (
-              <div
-                key={user.id}
-                className='w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
-              >
-                <p className='text-xl font-bold text-white'>{user.username}</p>
-              </div>
-            ))}
+        {!isOpen && (
+          <div className='fixed w-2/12 max-h-screen border border-l-1 top-0 bottom-0'>
+            <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
+              {listUser.map((user) => (
+                <div
+                  key={user.id}
+                  className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
+                >
+                  <img 
+                    src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
+                    alt='Avatar'
+                    className='w-10 h-10 rounded-full mr-4'
+                  />
+                  <p className='text-xl font-semibold text-white'>{user.username}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

@@ -7,20 +7,19 @@ function ManageUsers() {
   const [selectedUser, setSelectedUser] = useState(null)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [phone, setPhone] = useState('')
   const [role, setRole] = useState('')
 
   const resetForm = () => {
     setUsername('')
     setEmail('')
-    setPassword('')
     setPhone('')
     setRole('')
   }
   useEffect(() => {
     fetchUsers()
   }, [])
+
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/users')
@@ -45,6 +44,7 @@ function ManageUsers() {
       console.error(error)
     }
   }
+  
   const deleteUser = async () => {
     try {
       if (selectedUser) {
@@ -79,6 +79,7 @@ function ManageUsers() {
         <h1 className='absolute text-4xl font-bold mb-8 left-10 text-white'>Quản lý người dùng</h1><br />
         <form>
           <div className='flex gap-x-4 text-lg mt-8'>
+            {/* username */}
             <div>
               <label htmlFor='username' className='block font-medium text-white'>
                 Username
@@ -91,7 +92,7 @@ function ManageUsers() {
                 className='h-9 rounded-lg px-2'
               />
             </div>
-
+            {/* email */}
             <div>
               <label htmlFor='email' className='block font-medium text-white'>
                 Email
@@ -104,7 +105,7 @@ function ManageUsers() {
                 className='h-9 rounded-lg px-2'  
               />
             </div>
-
+            {/* phone */}
             <div>
               <label htmlFor='phone' className='block font-medium text-white'>
                 Phone
@@ -117,7 +118,7 @@ function ManageUsers() {
                 className='h-9 rounded-lg px-2'  
               />
             </div>
-
+            {/* role */}
             <div>
               <label htmlFor=' Role' className='block font-medium text-white'>
                 Role

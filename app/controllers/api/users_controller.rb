@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:logout, :update, :destroy]
   DEFAULT_AVATAR = "default_avatar.png"
   def index
-    users = User.all.select(:id, :username, :email, :role, :phone)
+    users = User.all.select(:id, :username, :email, :role, :phone, :avatar)
     render json: users.to_json, status: :ok
   end
   

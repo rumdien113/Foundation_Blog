@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   mount_uploader :banner, BannerUploader
+  belongs_to :user
   before_destroy :remove_images_folder
   has_many :comments, dependent: :destroy
     def remove_images_folder
