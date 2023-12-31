@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
   get '/profile', to: 'pages#profile'
   get 'posts/my', to: 'api/posts#my_posts'
+  get '/my_profile', to: 'api/users#my_profile'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'

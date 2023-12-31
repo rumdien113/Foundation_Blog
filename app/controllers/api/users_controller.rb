@@ -32,6 +32,22 @@ class Api::UsersController < ApplicationController
       render json: { error: 'User not found' }, status: :not_found
     end
   end
+
+  def my_profile
+    user = current_user
+  
+    if user 
+      render json: {
+        username: user.username,
+        email: user.email,
+        phone: user.phone,
+        avatar: user.avatar # Giả định sử dụng Paperclip hoặc ActiveStorage để lưu đường dẫn avatar
+      }, status: :ok
+    else 
+      render json: { error: 'User not found' }, status: :not_found
+    end
+  end
+  
   
   def update
     if current_user.Admin? || current_user.User?
