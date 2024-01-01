@@ -10,6 +10,7 @@ import PostForm from '../components/PostForm'
 import PostManage from '../components/PostManage'
 import PostDetail from '../components/PostDetail'
 import Profile from '../components/Profile'
+import UserProfile from '../components/UserProfile'
 ReactOnRails.register({
   LoginForm,
   Register,
@@ -22,4 +23,5 @@ ReactOnRails.register({
   PostManage,
   PostDetail,
   Profile,
+  UserProfile,
 })

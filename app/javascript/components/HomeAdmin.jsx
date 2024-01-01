@@ -37,7 +37,6 @@ const HomeAdmin = () => {
     getCurrentUser()
   }, [])
 
-  // Lấy danh sách bài viết
   const fetchPosts = () => {
     const token = localStorage.getItem('token')
     const headers = { Authorization: `Bearer ${token}` }

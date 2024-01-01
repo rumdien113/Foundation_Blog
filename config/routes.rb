@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'postform', to: 'pages#postform'
   get '/listpost' , to: 'pages#postmanage'
   get '/comment' , to: 'pages#comment'
+  get '/profile_view/:id' , to: 'pages#profile_view'
   get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
   get '/profile', to: 'pages#profile'
   get 'posts/my', to: 'api/posts#my_posts'

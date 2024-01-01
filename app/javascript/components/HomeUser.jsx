@@ -3,6 +3,7 @@ import axios from 'axios'
 import Header from './HeaderUser'
 import { IoClose } from 'react-icons/io5'
 import ReactHtmlParser from "react-html-parser";
+import { Link } from 'react-router-dom';
 
 const HomeUser = () => {
   const [posts, setPosts] = useState([])
@@ -14,6 +15,12 @@ const HomeUser = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [listUser, setListUser] = useState([])
   const user_id = localStorage.getItem('user_id')
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  const handleUserClick = (userId) => {
+    // Thực hiện việc chuyển hướng khi click vào người dùng
+    window.location.href = `/profile_view/${userId}`;
+  };
 
   // Lấy danh sách người dùng
   useEffect(() => {
@@ -332,16 +339,17 @@ const HomeUser = () => {
             <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
               {listUser.map((user) => (
                 <div
-                  key={user.id}
-                  className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
-                >
-                  <img 
-                    src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
-                    alt='Avatar'
-                    className='w-10 h-10 rounded-full mr-4'
-                  />
-                  <p className='text-xl font-semibold text-white'>{user.username}</p>
-                </div>
+                key={user.id}
+                onClick={() => handleUserClick(user.id)}
+                className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
+              >
+                <img 
+                  src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
+                  alt='Avatar'
+                  className='w-10 h-10 rounded-full mr-4'
+                />
+                <p className='text-xl font-semibold text-white'>{user.username}</p>
+              </div>
               ))}
             </div>
           </div>
