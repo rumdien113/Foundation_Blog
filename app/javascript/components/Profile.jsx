@@ -9,7 +9,7 @@ import { IoPersonOutline } from 'react-icons/io5'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 import { LuMail } from 'react-icons/lu'
 
-const Profile = ({userId}) => {
+const Profile = () => {
 	const [user, setUser] = useState([])
 	const [posts, setPosts] = useState([])
 	const [selectedPost, setSelectedPost] = useState(null)
@@ -79,163 +79,163 @@ const Profile = ({userId}) => {
 		}
 	}
 	
-		// Chọn bài viết để xem chi tiết
-		const handlePostClick = (post) => {
-			setSelectedPost(post)
-			fetchComments(post.id)
-			setIsOpen(!isOpen)
-		}
+	// Chọn bài viết để xem chi tiết
+	const handlePostClick = (post) => {
+		setSelectedPost(post)
+		fetchComments(post.id)
+		setIsOpen(!isOpen)
+	}
 
-		// Chỉnh sửa thông tin người dùng
-		const handleEdit = (user) => {
-			if (user) {
-				setUsername(user.username)
-				setEmail(user.email)
-				setPhone(user.phone)
-			}
-			setIsEdit(!isEdit)
+	// Chỉnh sửa thông tin người dùng
+	const handleEdit = (user) => {
+		if (user) {
+			setUsername(user.username)
+			setEmail(user.email)
+			setPhone(user.phone)
 		}
+		setIsEdit(!isEdit)
+	}
+
+	// Lấy danh sách bình luận của bài viết
+	const fetchComments = (postId) => {
+		axios
+			.get(`http://localhost:3000/api/posts/${postId}/show_comments`)
+			.then((response) => {
+				const comments = response.data
+				setSelectedPost((prevPost) => ({
+					...prevPost,
+					comments: comments.map((comment) => ({
+						...comment,
+						user: users[comment.user_id], // Lấy thông tin người dùng từ state users
+					})),
+				}))
+
+				// Lấy danh sách user_ids từ các bình luận để lấy thông tin người dùng
+				const user_ids = comments.map((comment) => comment.user_id)
+				// Lấy thông tin người dùng từ API hoặc từ dữ liệu hiện có (nếu đã có)
+				// Ví dụ: lấy thông tin người dùng từ API
+				user_ids.forEach((user_id) => {
+					if (!users[user_id]) {
+						axios
+							.get(`http://localhost:3000/api/users/${user_id}`)
+							.then((response) => {
+								setUsers((prevUsers) => ({
+									...prevUsers,
+									[user_id]: response.data, // Lưu thông tin người dùng vào state users
+								}))
+							})
+							.catch((error) => {
+								console.log(error.response.data)
+							})
+					}
+				})
+			})
+			.catch((error) => {
+				console.log(error.response.data)
+			})
+	}
+
+	// Lấy danh sách bình luận của bài viết
+	const handleCommentChange = (event) => {
+		setNewComment(event.target.value)
+		fetchComments(selectedPost.id)
+	}
+
+	// Tạo bình luận
+	const handleCommentSubmit = () => {
+		const token = localStorage.getItem('token')
+		const headers = { Authorization: `Bearer ${token}` }
+		axios
+			.post(
+				`http://localhost:3000/api/comments`,
+				{
+					comment: {
+						content: newComment,
+						post_id: selectedPost.id,
+					},
+				},
+				{ headers }
+			)
+			.then((response) => {
+				console.log(response.data)
+				setNewComment('')
+				fetchComments(selectedPost.id)
+			})
+			.catch((error) => {
+				console.log(error.response.data)
+			})
+	}
 	
-		// Lấy danh sách bình luận của bài viết
-		const fetchComments = (postId) => {
-			axios
-				.get(`http://localhost:3000/api/posts/${postId}/show_comments`)
-				.then((response) => {
-					const comments = response.data
-					setSelectedPost((prevPost) => ({
+	// Chọn bình luận để sửa
+	const handleCommentSelect = (comment) => {
+		fetchComments(selectedPost.id)
+		setSelectedComment(comment)
+	}
+
+	// Sửa bình luận
+	const handleCommentEdit = (commentId, newContent) => {
+		const token = localStorage.getItem('token')
+		const headers = { Authorization: `Bearer ${token}` }
+
+		axios
+			.put(
+				`http://localhost:3000/api/comments/${commentId}`,
+				{
+					comment: {
+						content: newContent,
+					},
+				},
+				{ headers }
+			)
+			.then((response) => {
+				console.log(response.data)
+				setSelectedPost((prevPost) => {
+					const updatedComments = prevPost.comments.map((comment) => {
+						if (comment.id === commentId) {
+							comment.content = newContent
+						}
+						return comment
+					})
+
+					return {
 						...prevPost,
-						comments: comments.map((comment) => ({
-							...comment,
-							user: users[comment.user_id], // Lấy thông tin người dùng từ state users
-						})),
-					}))
-	
-					// Lấy danh sách user_ids từ các bình luận để lấy thông tin người dùng
-					const user_ids = comments.map((comment) => comment.user_id)
-					// Lấy thông tin người dùng từ API hoặc từ dữ liệu hiện có (nếu đã có)
-					// Ví dụ: lấy thông tin người dùng từ API
-					user_ids.forEach((user_id) => {
-						if (!users[user_id]) {
-							axios
-								.get(`http://localhost:3000/api/users/${user_id}`)
-								.then((response) => {
-									setUsers((prevUsers) => ({
-										...prevUsers,
-										[user_id]: response.data, // Lưu thông tin người dùng vào state users
-									}))
-								})
-								.catch((error) => {
-									console.log(error.response.data)
-								})
-						}
-					})
+						comments: updatedComments,
+					}
 				})
-				.catch((error) => {
-					console.log(error.response.data)
+
+				setSelectedComment(null)
+			})
+			.catch((error) => {
+				console.log(error.response.data)
+				alert('có phải của mình đâu mà sửa hả cậu?')
+			})
+	}
+
+	// Xoá bình luận
+	const handleDeleteClick = (comment) => {
+		const token = localStorage.getItem('token')
+		const headers = { Authorization: `Bearer ${token}` }
+
+		axios
+			.delete(`http://localhost:3000/api/comments/${comment.id}`, {
+				headers,
+			})
+			.then((response) => {
+				console.log(response.data)
+				alert('Đã xoá bình luận thành công')
+				setSelectedPost((prevPost) => {
+					const updatedComments = prevPost.comments.filter((c) => c.id !== comment.id)
+					return {
+						...prevPost,
+						comments: updatedComments,
+					}
 				})
-		}
-	
-		// Lấy danh sách bình luận của bài viết
-		const handleCommentChange = (event) => {
-			setNewComment(event.target.value)
-			fetchComments(selectedPost.id)
-		}
-	
-		// Tạo bình luận
-		const handleCommentSubmit = () => {
-			const token = localStorage.getItem('token')
-			const headers = { Authorization: `Bearer ${token}` }
-			axios
-				.post(
-					`http://localhost:3000/api/comments`,
-					{
-						comment: {
-							content: newComment,
-							post_id: selectedPost.id,
-						},
-					},
-					{ headers }
-				)
-				.then((response) => {
-					console.log(response.data)
-					setNewComment('')
-					fetchComments(selectedPost.id)
-				})
-				.catch((error) => {
-					console.log(error.response.data)
-				})
-		}
-		
-		// Chọn bình luận để sửa
-		const handleCommentSelect = (comment) => {
-			fetchComments(selectedPost.id)
-			setSelectedComment(comment)
-		}
-	
-		// Sửa bình luận
-		const handleCommentEdit = (commentId, newContent) => {
-			const token = localStorage.getItem('token')
-			const headers = { Authorization: `Bearer ${token}` }
-	
-			axios
-				.put(
-					`http://localhost:3000/api/comments/${commentId}`,
-					{
-						comment: {
-							content: newContent,
-						},
-					},
-					{ headers }
-				)
-				.then((response) => {
-					console.log(response.data)
-					setSelectedPost((prevPost) => {
-						const updatedComments = prevPost.comments.map((comment) => {
-							if (comment.id === commentId) {
-								comment.content = newContent
-							}
-							return comment
-						})
-	
-						return {
-							...prevPost,
-							comments: updatedComments,
-						}
-					})
-	
-					setSelectedComment(null)
-				})
-				.catch((error) => {
-					console.log(error.response.data)
-					alert('có phải của mình đâu mà sửa hả cậu?')
-				})
-		}
-	
-		// Xoá bình luận
-		const handleDeleteClick = (comment) => {
-			const token = localStorage.getItem('token')
-			const headers = { Authorization: `Bearer ${token}` }
-	
-			axios
-				.delete(`http://localhost:3000/api/comments/${comment.id}`, {
-					headers,
-				})
-				.then((response) => {
-					console.log(response.data)
-					alert('Đã xoá bình luận thành công')
-					setSelectedPost((prevPost) => {
-						const updatedComments = prevPost.comments.filter((c) => c.id !== comment.id)
-						return {
-							...prevPost,
-							comments: updatedComments,
-						}
-					})
-				})
-				.catch((error) => {
-					console.log(error.response.data)
-					alert('Không phải của mình đừng xoá')
-				})
-		}
+			})
+			.catch((error) => {
+				console.log(error.response.data)
+				alert('Không phải của mình đừng xoá')
+			})
+	}
 	
 	return (
 		<div>

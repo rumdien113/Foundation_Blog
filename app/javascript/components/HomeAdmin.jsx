@@ -15,27 +15,30 @@ const HomeAdmin = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [listUser, setListUser] = useState([])
   const user_id = localStorage.getItem('user_id')
-  
-  // Lấy danh sách người dùng
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/api/users')
-        const users = res.data.filter(user => user.id != user_id)
-        setListUser(users)
-      }
-      catch (err) {
-        console.log(err)
-      }
-    }
-    fetchData()
-  }, [])
+
+  const handleUserClick = (userId) => {
+    // Thực hiện việc chuyển hướng khi click vào người dùng
+    window.location.href = `/profile_view/${userId}`;
+  };
 
   // Lấy danh sách bài viết và thông tin người dùng hiện tại
   useEffect(() => {
     fetchPosts()
+    fetchData()
     getCurrentUser()
   }, [])
+
+  // Lấy danh sách người dùng
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/users')
+      const users = res.data.filter(user => user.id != user_id)
+      setListUser(users)
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
 
   // Lấy danh sách bài viết
   const fetchPosts = () => {
@@ -224,7 +227,7 @@ const HomeAdmin = () => {
       })
   }
 
-  return ( 
+  return (
     <div className='bg-zinc-900'>
       <Header />
       <div className='flex flex-1 w-full h-full overflow-hidden'>
@@ -248,7 +251,7 @@ const HomeAdmin = () => {
                 <div className='absolute hover:bg-gray-600/50 p-2 m-2 rounded-full z-30'>
                   <IoClose
                     onClick={() => setIsOpen(!isOpen)}
-                    className='text-white hover:text-gray-300 items-center justify-center font-extrabold text-4xl cursor-pointer' 
+                    className='text-white hover:text-gray-300 items-center justify-center font-extrabold text-4xl cursor-pointer'
                   />
                 </div>
                 {/* image */}
@@ -269,7 +272,7 @@ const HomeAdmin = () => {
                     <p className='text-slate-400'>{selectedPost.introduction}</p>
 
                     {/* đây nè nha */}
-                    <p className='ext-3xl font-bold text-white'>{ReactHtmlParser(selectedPost.content)}{' '}</p>          
+                    <p className='ext-3xl font-bold text-white'>{ReactHtmlParser(selectedPost.content)}{' '}</p>
                   </div>
                   {/* comment */}
                   <div className='mt-4'>
@@ -321,7 +324,7 @@ const HomeAdmin = () => {
                       </button>
                     </div>
                   </div>
-                </div>            
+                </div>
               </div>
             </div>
           )}
@@ -334,9 +337,10 @@ const HomeAdmin = () => {
               {listUser.map((user) => (
                 <div
                   key={user.id}
+                  onClick={() => handleUserClick(user.id)}
                   className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
                 >
-                  <img 
+                  <img
                     src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
                     alt='Avatar'
                     className='w-10 h-10 rounded-full mr-4'

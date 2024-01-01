@@ -44,6 +44,11 @@ module Api
       end
     end
 
+    def posts_by_user
+      @posts = Post.where(user_id: params[:user_id])
+      render json: @posts, status: :ok
+    end
+    
     def update
       @post = Post.find(params[:id])
     

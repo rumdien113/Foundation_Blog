@@ -1,77 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Header from './HeaderUser'
+import HeaderAdmin from './HeaderAdmin'
+import HeaderUser from './HeaderUser'
+import ReactHtmlParser from 'react-html-parser'
+import default_avatar from '../../assets/images/default_avatar.png'
 import { IoClose } from 'react-icons/io5'
-import ReactHtmlParser from "react-html-parser"
+import { IoPersonOutline } from 'react-icons/io5'
+import { IoPhonePortraitOutline } from 'react-icons/io5'
+import { LuMail } from 'react-icons/lu'
 
-const HomeUser = () => {
+const UserProfile = () => {
+  // const [userData, setUserData] = useState(null) // Khai báo state userData để lưu thông tin người dùng được chọn
+  const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [selectedPost, setSelectedPost] = useState(null)
   const [newComment, setNewComment] = useState('')
-  const [selectedComment, setSelectedComment] = useState(null)
-  const [currentUserRole, setCurrentUserRole] = useState(null)
   const [users, setUsers] = useState({}) // Khai báo state users để lưu thông tin người dùng
+  const [selectedComment, setSelectedComment] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [listUser, setListUser] = useState([])
+
+  const role = localStorage.getItem('role')
   const user_id = localStorage.getItem('user_id')
-
-  const handleUserClick = (userId) => {
-    // Thực hiện việc chuyển hướng khi click vào người dùng
-    window.location.href = `/profile_view/${userId}`;
-  };
-
-  // Lấy danh sách bài viết và thông tin người dùng hiện tại
-  useEffect(() => {
-    fetchPosts()
-    fetchData()
-    getCurrentUser()
-  }, [])
-
-  // Lấy danh sách người dùng
-  const fetchData = async () => {
-    try {
-      const res = await axios.get('http://localhost:3000/api/users')
-      const users = res.data.filter(user => user.id != user_id)
-      setListUser(users)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
   
-  // Lấy danh sách bài viết
-  const fetchPosts = async () => {
-    const token = localStorage.getItem('token')
-    const headers = { Authorization: `Bearer ${token}` }
-    try {
-      const res = await axios.get('http://localhost:3000/api/posts', { headers })
-      const posts = res.data
-      const chunkSize = 3
-      for (let i = 0; i < posts.length; i += chunkSize) {
-        setTimeout(() => {
-          setPosts(prevPosts => [...prevPosts, ...posts.slice(i, i + chunkSize)])
-        }, 2000 * (i / chunkSize))
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  const pathname = window.location.pathname // Lấy đường dẫn URL hiện tại
+  const segments = pathname.split('/') // Tách đường dẫn thành mảng các phần từ
+  const userId = segments[segments.length - 1]
 
-  // Lấy thông tin người dùng hiện tại
-  const getCurrentUser = () => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      axios
-        .get('http://localhost:3000/api/users/current', {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          setCurrentUser(response.data)
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.log(error.response.data)
-        })
+  useEffect(() => {
+
+    if (userId) {
+      const fetchUser = async () => {
+        try {
+          const response = await fetch(`/api/users/profile/${userId}`)
+          const data = await response.json()
+          setUser(data) // Lưu thông tin người dùng vào state
+        } catch (error) {
+          console.error('Error fetching user data:', error)
+        }
+      }
+      fetchUser()
+    }
+    fetchPosts()
+  }, [])
+  
+  // lấy tất cả bài viết của người dùng được chọn
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/posts/posts_by_user?user_id=${userId}`)
+      setPosts(response.data)
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -126,12 +104,6 @@ const HomeUser = () => {
     setNewComment(event.target.value)
     fetchComments(selectedPost.id)
   }
-
-  // Lấy role của user từ localStorage
-  useEffect(() => {
-    const role = localStorage.getItem('role')
-    setCurrentUserRole(role)
-  }, [])
 
   // Tạo bình luận
   const handleCommentSubmit = () => {
@@ -230,11 +202,33 @@ const HomeUser = () => {
   }
 
   return (
-    <div className='bg-zinc-900'>
-      <Header />
-      <div className='flex flex-1 w-full h-full overflow-hidden'>
-        {/* list posts */}
-        <div className='w-6/12 mx-auto py-4 pt-20 font-[inherit] overflow-y-auto'>
+    <div>
+      {role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
+      <div className='flex flex-col justify-center px-12 bg-zinc-900 h-full pt-20 font-[inherit]'>
+        {/* info */}
+        <div className='flex max-h-[150px] mx-auto'>
+          <img
+            src={user && (user.avt || user.avt === 'default_avatar') ? 'http://localhost:3000' + user.avt.url : default_avatar}
+            alt='Avatar'
+            className='w-[150px] h-[150px] rounded-full mr-24 object-cover'
+          />
+          <div className='grid grid-cols-2 text-white justify-between'>
+            <p className='flex items-center text-2xl font-bold'>
+              <IoPersonOutline className='mr-2' />
+              {user && user.username}
+            </p>
+            <p className='flex items-center text-xl'>
+              <IoPhonePortraitOutline className='mr-2' />
+              {user && user.email}
+            </p>
+            <p className='flex items-center text-xl'>
+              <LuMail className='mr-2' />
+              {user && user.phone}
+            </p>
+          </div>
+        </div>
+        {/* post of user */}
+        <div className='w-6/12 mx-auto py-4 pt-20 min-h-screen'>
           {[...posts].reverse().map((post) => (
             <div
               key={post.id}
@@ -248,12 +242,12 @@ const HomeUser = () => {
             </div>
           ))}
           {isOpen && selectedPost && (
-            <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black'>
+            <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black h-screen'>
               <div className='flex flex-row relative'>
                 <div className='absolute hover:bg-gray-600/50 p-2 m-2 rounded-full z-30'>
                   <IoClose
                     onClick={() => setIsOpen(!isOpen)}
-                    className='text-white hover:text-gray-300 items-center justify-center font-extrabold text-4xl cursor-pointer' 
+                    className='text-white hover:text-gray-300 items-center justify-center font-extrabold text-4xl cursor-pointer'
                   />
                 </div>
                 {/* image */}
@@ -274,7 +268,7 @@ const HomeUser = () => {
                     <p className='text-slate-400'>{selectedPost.introduction}</p>
 
                     {/* đây nè nha */}
-                    <p className='ext-3xl font-bold text-white'>{ReactHtmlParser(selectedPost.content)}{' '}</p>          
+                    <p className='ext-3xl font-bold text-white'>{ReactHtmlParser(selectedPost.content)}{' '}</p>
                   </div>
                   {/* comment */}
                   <div className='mt-4'>
@@ -294,7 +288,7 @@ const HomeUser = () => {
                                   className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'>
                                 </textarea>
                               </div>
-                              <div class='flex flex-row items-center gap-4 px-3 py-2 mt-2 border-t dark:border-gray-600'>
+                              <div className='flex flex-row items-center gap-4 px-3 py-2 mt-2 border-t dark:border-gray-600'>
                                 <button type='submit' onClick={() => handleCommentEdit(comment.id, selectedComment.content)}
                                   className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'>
                                   Lưu
@@ -319,43 +313,21 @@ const HomeUser = () => {
                       <textarea id='comment' rows='2' placeholder='Viết bình luận của bạn ở đây...' value={newComment} onChange={handleCommentChange}
                         className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'></textarea>
                     </div>
-                    <div class='flex items-center justify-between px-3 py-2 border-t dark:border-gray-600'>
+                    <div className='flex items-center justify-between px-3 py-2 border-t dark:border-gray-600'>
                       <button type='submit' onClick={handleCommentSubmit}
                         className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'>
                         Bình luận
                       </button>
                     </div>
                   </div>
-                </div>            
+                </div>
               </div>
             </div>
           )}
         </div>
-
-        {/* list users */}
-        {!isOpen && (
-          <div className='fixed w-2/12 max-h-screen border border-l-1 top-0 bottom-0'>
-            <div className='w-full mx-auto py-4 pt-20 font-[inherit] overflow-y-auto overflow-x-hidden'>
-              {listUser.map((user) => (
-                <div
-                key={user.id}
-                onClick={() => handleUserClick(user.id)}
-                className='flex items-center w-full mb-2 p-1 hover:bg-gray-600/50 rounded cursor-pointer'
-              >
-                <img 
-                  src={user.avatar || user.avatar === 'default_avatar' ? 'http://localhost:3000' + user.avatar.url : default_avatar}
-                  alt='Avatar'
-                  className='w-10 h-10 rounded-full mr-4'
-                />
-                <p className='text-xl font-semibold text-white'>{user.username}</p>
-              </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
 }
 
-export default HomeUser
+export default UserProfile

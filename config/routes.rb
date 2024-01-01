@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'postform', to: 'pages#postform'
   get '/listpost' , to: 'pages#postmanage'
   get '/comment' , to: 'pages#comment'
+  get '/profile_view/:id' , to: 'pages#profile_view'
   get 'posts/:post_id/comments', to: 'api/comments#show_comments_for_post'
   get '/profile', to: 'pages#profile'
   get 'posts/my', to: 'api/posts#my_posts'
@@ -27,9 +28,12 @@ Rails.application.routes.draw do
     delete '/logout', to: 'users#logout'
     get '/current', to: 'users#current'
     resources :posts, only: [:create, :index, :destroy, :update, :show] do
+      member do
+        get 'show_comments' # Đổi tên route thành 'show_comments'
+        delete 'delete_all_comments', to: 'comments#destroy_all' # Thêm route để xoá hết comment
+      end
+      get 'posts_by_user', on: :collection # Thêm route để lấy bài viết của một người dùng cụ thể
       resources :comments, only: [:index, :create]
-      get 'show_comments', on: :member # Đổi tên route thành 'show_comments'
-      delete 'delete_all_comments', on: :member, to: 'comments#destroy_all' # Thêm route để xoá hết comment
     end
     resources :comments, only: [:index, :create, :update, :destroy] do
       collection do

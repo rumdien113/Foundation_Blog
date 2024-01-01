@@ -126,12 +126,6 @@ function Register() {
               Have an account?
                 <a href='/login' className='text-blue-500 transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-700 active:text-blue-700'> Login </a>
               </p>
-
-              <div className='my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300'>
-                <p className='mx-4 mb-0 text-center font-semibold dark:text-neutral-600'>
-                  OR
-                </p>
-              </div>
             </form>
           </div>
         </div>

@@ -76,16 +76,37 @@ const PostForm = () => {
           </div>
 
           <div className='form-field mb-6'>
-            <label htmlFor='banner' className='block mb-2 text-xl font-medium text-gray-900 dark:text-white'>Upload file image</label>
-            <input className='block w-full text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
-              type='file' id='banner' name='banner' accept='image/*' placeholder='' onChange={handleBannerChange}
+            <label 
+              htmlFor='banner'
+              className='block mb-2 text-xl font-medium text-gray-900 dark:text-white'
+            >
+              Tải hình ảnh lên
+            </label>
+            <input
+              className='block w-full text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
+              type='file' 
+              id='banner'
+              name='banner'
+              accept='image/*'
+              placeholder=''
+              onChange={handleBannerChange}
             />
             <p className='mt-1 text-sm text-gray-500 dark:text-gray-300' id='file_input_help'>SVG, PNG, JPG or GIF</p>
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='introduction' className='block mb-2 text-xl font-medium text-gray-900 dark:text-white'>Giới thiệu</label>
-            <textarea id='introduction' name='introduction' rows='2' placeholder='Write your thoughts here...' onChange={handleIntroductionChange}
+            <label 
+              htmlFor='introduction'
+              className='block mb-2 text-xl font-medium text-gray-900 dark:text-white'
+            >
+              Giới thiệu
+            </label>
+            <textarea 
+              id='introduction'
+              name='introduction'
+              rows='2'
+              placeholder='Nhập giới thiệu bài viết...'
+              onChange={handleIntroductionChange}
               className='block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
             </textarea>
           </div>
