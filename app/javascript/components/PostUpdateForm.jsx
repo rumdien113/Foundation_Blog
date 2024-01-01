@@ -75,14 +75,24 @@ const PostUpdateForm = ({ postId }) => {
       <form onSubmit={handleSubmit}>
         <div className='form-field mb-6'>
           <label htmlFor='title' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>Tiêu đề</label>
-          <input type='text' id='title' name='title' value={title} onChange={handleTitleChange}
+          <input 
+            type='text'
+            id='title'
+            name='title'
+            value={title}
+            onChange={handleTitleChange}
             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           />
         </div>
         <div className='form-field mb-6'>
           <label htmlFor='banner' className='block mb-2 text-lg font-medium text-gray-900 dark:text-white'>Banner</label>
-          <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            type='file' id='banner' name='banner' accept='image/*' onChange={handleBannerChange}
+          <input 
+            className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            type='file'
+            id='banner'
+            name='banner'
+            accept='image/*'
+            onChange={handleBannerChange}
           />
         </div>
         <div className='form-field mb-6'>

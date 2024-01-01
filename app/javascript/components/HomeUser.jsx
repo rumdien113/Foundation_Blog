@@ -15,26 +15,25 @@ const HomeUser = () => {
   const [listUser, setListUser] = useState([])
   const user_id = localStorage.getItem('user_id')
 
-  // Lấy danh sách người dùng
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/api/users')
-        const users = res.data.filter(user => user.id != user_id)
-        setListUser(users)
-      }
-      catch (err) {
-        console.log(err)
-      }
-    }
-    fetchData()
-  }, [])
-
   // Lấy danh sách bài viết và thông tin người dùng hiện tại
   useEffect(() => {
     fetchPosts()
+    fetchData()
     getCurrentUser()
   }, [])
+
+  // Lấy danh sách người dùng
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/users')
+      const users = res.data.filter(user => user.id != user_id)
+      setListUser(users)
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+  
 
   // Lấy danh sách bài viết
   const fetchPosts = () => {

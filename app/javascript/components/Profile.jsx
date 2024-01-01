@@ -9,7 +9,7 @@ import { IoPersonOutline } from 'react-icons/io5'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 import { LuMail } from 'react-icons/lu'
 
-const Profile = () => {
+const Profile = ({userId}) => {
 	const [user, setUser] = useState([])
 	const [posts, setPosts] = useState([])
 	const [selectedPost, setSelectedPost] = useState(null)
@@ -35,7 +35,7 @@ const Profile = () => {
 	// lấy thông tin người dùng
 	const fetchUser = async () => {
 		try {
-			const token = localStorage.getItem('token');
+			const token = localStorage.getItem('token')
 			const response = await axios.get(`http://localhost:3000/my_profile`, {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -48,17 +48,26 @@ const Profile = () => {
 	}
 
 	// sửa thông tin người dùng
-	const handleSubmit = async () => {
-    try {
-			const res = await axios.patch(
-				`http://localhost:3000/api/users/${user_id}`,
-				{ user: { username, email, phone, avatar } }
-			)
-			console.log(res.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+	const handleSubmit = async (user_id, { username, email, phone, avatar }) => {
+		try {
+		  const formData = new FormData()
+		  formData.append('username', username)
+		  formData.append('email', email)
+		  formData.append('phone', phone)
+		  formData.append('avatar', avatar)
+	  
+		  const response = await axios.put(`/api/users/${user_id}`, formData, {
+			headers: {
+			  'Content-Type': 'multipart/form-data',
+			},
+		  })
+	  
+		  // Xử lý kết quả từ backend (nếu cần)
+		  console.log(response.data) // Hiển thị thông tin phản hồi từ server
+		} catch (error) {
+		  console.error('Error:', error)
+		}
+	  }
 
 	// lấy tất cả bài viết của người dùng hiện tại
 	const fetchPosts = async () => {
@@ -77,6 +86,7 @@ const Profile = () => {
 			setIsOpen(!isOpen)
 		}
 
+		// Chỉnh sửa thông tin người dùng
 		const handleEdit = (user) => {
 			if (user) {
 				setUsername(user.username)
@@ -155,7 +165,7 @@ const Profile = () => {
 					console.log(error.response.data)
 				})
 		}
-	
+		
 		// Chọn bình luận để sửa
 		const handleCommentSelect = (comment) => {
 			fetchComments(selectedPost.id)
@@ -226,7 +236,7 @@ const Profile = () => {
 					alert('Không phải của mình đừng xoá')
 				})
 		}
-
+	
 	return (
 		<div>
 			{role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
@@ -236,7 +246,7 @@ const Profile = () => {
 					<img
 						src={user && (user.avatar || user.avatar === 'default_avatar') ? 'http://localhost:3000' + user.avatar.url : default_avatar}
 						alt='Avatar'
-						className='w-[150px] h-[150px] rounded-full mr-24'
+						className='w-[150px] h-[150px] rounded-full mr-24 object-cover'
 					/>
 					<div className='grid grid-cols-2 text-white justify-between'>
 						<p className='flex items-center text-2xl font-bold'>
@@ -252,7 +262,7 @@ const Profile = () => {
 							{user && user.phone}
 						</p>
 						<button 
-							onClick={() => handleEdit()}
+							onClick={() => handleEdit(user)}
 							className='flex text-xl items-center justify-center w-auto h-min my-auto px-4 py-2 text-white bg-[#363636] rounded-lg hover:bg-[#262626]'
 						>
 							Chỉnh sửa trang cá nhân
@@ -337,7 +347,7 @@ const Profile = () => {
 				)}
 				</div>
 				{/* post of user */}
-				<div className='w-6/12 mx-auto py-4 pt-20'>
+				<div className='w-6/12 mx-auto py-4 pt-20 min-h-screen'>
           {[...posts].reverse().map((post) => (
             <div
               key={post.id}
@@ -351,7 +361,7 @@ const Profile = () => {
             </div>
           ))}
           {isOpen && selectedPost && (
-            <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black'>
+            <div className='fixed top-0 bottom-0 left-0 right-0 pt-14 z-100 bg-black h-screen'>
               <div className='flex flex-row relative'>
                 <div className='absolute hover:bg-gray-600/50 p-2 m-2 rounded-full z-30'>
                   <IoClose

@@ -50,23 +50,25 @@ class Api::UsersController < ApplicationController
   
   
   def update
-    if current_user.Admin? || current_user.User?
-      user = User.find(params[:id])
+    user = User.find(params[:id])
+    user.username = params[:username]
+    user.email = params[:email]
+    user.phone = params[:phone]
   
-      # Kiểm tra nếu không có giá trị được truyền vào cho avatar hoặc giá trị truyền vào là null
-      if user_params[:avt].blank? || user_params[:avt].nil?
-        user.avatar = DEFAULT_AVATAR
-      end
+    # Kiểm tra và xóa ảnh cũ trước khi cập nhật ảnh mới
+    user.remove_avatar! if params[:avatar].present?
   
-      if user.update(user_params)
-        render json: { message: 'Cập nhật thành công' }
-      else
-        render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
-      end
+    # Thêm ảnh mới
+    user.avatar = params[:avatar] if params[:avatar].present?
+  
+    if user.save
+      render json: { message: 'User updated successfully' }, status: :ok
     else
-      render json: { error: 'Không có quyền truy cập. Chỉ Admin mới có thể cập nhật.' }, status: :forbidden
+      render json: { error: 'Failed to update user' }, status: :unprocessable_entity
     end
   end
+  
+  
 
   def destroy
     if current_user.Admin? # Sử dụng current_user từ Devise
@@ -103,4 +105,7 @@ class Api::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :phone, :role, :avatar)
   end
+  # def default_avatar
+  #   Rails.root.join("public/default_avatar.jpg")
+  # end
 end

@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   has_many :posts
+  def remove_avatar!
+    avatar.remove! if avatar.present?
+  end
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable,:omniauthable, omniauth_providers: [:google_oauth2]
   def self.from_google(u)
     random_phone = '%010d' % rand(10**10) # Tạo số điện thoại ngẫu nhiên 10 chữ số
@@ -8,9 +11,7 @@ class User < ApplicationRecord
                   phone: random_phone, role: 'User',
                   password: Devise.friendly_token[0, 20]).find_or_create_by!(email: u[:email])
   end
-  
-  
-  
+
      #has_secure_password
     has_many :comments, dependent: :destroy
     validates :username, presence: true
