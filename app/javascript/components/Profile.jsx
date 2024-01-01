@@ -48,17 +48,26 @@ const Profile = () => {
 	}
 
 	// sửa thông tin người dùng
-	const handleSubmit = async () => {
-    try {
-			const res = await axios.patch(
-				`http://localhost:3000/api/users/${user_id}`,
-				{ user: { username, email, phone, avatar } }
-			)
-			console.log(res.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+	const handleSubmit = async (user_id, { username, email, phone, avatar }) => {
+		try {
+		  const formData = new FormData();
+		  formData.append('username', username);
+		  formData.append('email', email);
+		  formData.append('phone', phone);
+		  formData.append('avatar', avatar);
+	  
+		  const response = await axios.put(`/api/users/${user_id}`, formData, {
+			headers: {
+			  'Content-Type': 'multipart/form-data',
+			},
+		  });
+	  
+		  // Xử lý kết quả từ backend (nếu cần)
+		  console.log(response.data); // Hiển thị thông tin phản hồi từ server
+		} catch (error) {
+		  console.error('Error:', error);
+		}
+	  };
 
 	// lấy tất cả bài viết của người dùng hiện tại
 	const fetchPosts = async () => {
