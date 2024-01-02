@@ -227,6 +227,12 @@ const HomeAdmin = () => {
       })
   }
 
+  const Loading = () => (
+    <div className="post loading">
+      <h5>Loading...</h5>
+    </div>
+  )
+
   return (
     <div className='bg-zinc-900'>
       <Header />
