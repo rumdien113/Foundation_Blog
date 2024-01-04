@@ -63,7 +63,7 @@ const LoginForm = () => {
                 </span>
               </div>
               {/* EMAIL INPUT */}
-              <div className='form-field mb-6 font-medium'>
+              <div className='form-field mb-6 font-normal'>
                 <label 
                   htmlFor='email'
                   className = 'form-label pointer-events-none left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-blue-800 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:text-blue-800 peer-focus:bg-white peer-focus:px-1 peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:peer-focus:text-primary   '
@@ -75,7 +75,7 @@ const LoginForm = () => {
                 />
               </div>
               {/* PASSWORD INPUT */}
-              <div className='form-field mb-6 font-medium'>
+              <div className='form-field mb-6 font-normal'>
                 <label 
                   htmlFor='password'
                   className = 'form-label pointer-events-none left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-blue-800 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:text-blue-800 peer-focus:bg-white peer-focus:px-1 peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-nonedark:peer-focus:text-primary'

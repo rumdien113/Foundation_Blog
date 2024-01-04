@@ -22,10 +22,10 @@ const Header = () => {
   }
 
   return (
-    <nav className='bg-zinc-800 w-full items-center t-0 z-10 fixed'>
+    <nav className='bg-zinc-800 w-full items-center border-b-2 t-0 z-10 fixed'>
       <div className='w-full flex relative'>
         <div className='w-full' id=''>
-          <ul className='flex justify-center m-2 gap-40 text-white'>
+          <ul className='flex justify-center m-2 gap-10 md:gap-20 lg:gap-40 text-white text-xl'>
             <li className='p-2'>
               <a className='' href='/homeuser'>
                 <img src={home} width={25} height={25} alt='Trang chu' />

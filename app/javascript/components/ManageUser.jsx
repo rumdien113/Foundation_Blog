@@ -16,6 +16,7 @@ function ManageUsers() {
     setPhone('')
     setRole('')
   }
+
   useEffect(() => {
     fetchUsers()
   }, [])
@@ -28,6 +29,7 @@ function ManageUsers() {
       console.error(error)
     }
   }
+
   const editUser = async () => {
     try {
       if (selectedUser) {
@@ -64,6 +66,7 @@ function ManageUsers() {
       window.location.href = '/login'
     }
   }
+
   const handleUserSelect = (user) => {
     setSelectedUser(user)
     setUsername(user.username)
@@ -75,10 +78,11 @@ function ManageUsers() {
   return (
     <div>
       <Header />
-      <div className='relative bg-zinc-900 h-screen pt-20 font-[inherit] px-4'>
+      <div className='relative bg-[#18191a] w-full h-screen pt-20 font-[inherit] px-4'>
         <h1 className='absolute text-4xl font-bold mb-8 left-10 text-white'>Quản lý người dùng</h1><br />
+        {/* form sửa thông tin */}
         <form>
-          <div className='flex gap-x-4 text-lg mt-8'>
+          <div className='flex sm:flex-col lg:flex-row gap-x-4 text-lg mt-8'>
             {/* username */}
             <div>
               <label htmlFor='username' className='block font-medium text-white'>
@@ -145,6 +149,7 @@ function ManageUsers() {
           </div>
         </form>
 
+        {/* danh sách user */}
         <table className='text-white mt-4 w-full border-2 border-white rounded'>
           <thead className='text-2xl'>
             <tr className=' border-2 border-white text-left'>

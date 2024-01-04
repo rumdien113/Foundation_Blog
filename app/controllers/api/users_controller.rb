@@ -10,12 +10,9 @@ class Api::UsersController < ApplicationController
   
   def create
     user = User.new(user_params)
-    user.role = 'User'
     
-    # Kiểm tra nếu không có giá trị được truyền vào cho avatar hoặc giá trị truyền vào là null
-    if user.avatar.blank? || user.avatar.nil?
-      user.avatar = DEFAULT_AVATAR
-    end
+    user.role = 'User'    
+    user.avatar = DEFAULT_AVATAR
   
     if user.save
       render json: { message: 'Đăng ký thành công' }
@@ -92,7 +89,7 @@ class Api::UsersController < ApplicationController
       render json: {
         username: user.username,
         email: user.email,
-        phone: user.phone,  
+        phone: user.phone, 
         avt: user.avatar
       }, status: :ok
     else 

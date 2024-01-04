@@ -63,15 +63,15 @@ const PostForm = () => {
   }
 
   return (
-    <div className='bg-zinc-900'>
+    <div className='bg-[#18191a]'>
       {role === 'Admin' ? <HeaderAdmin /> : <HeaderUser />}
-      <div className='pl-96 pr-96 bg-zinc-900 grid h-screen pt-20 font-[inherit]'>
+      <div className='bg-[#18191a] flex flex-col h-screen pt-24 font-[inherit] w-10/12 mx-auto'>
         <h2 className='block mb-2 text-4xl font-medium text-gray-900 dark:text-white'>Đăng bài viết</h2>
         <form onSubmit={handleSubmit}>
           <div className='form-field mb-6'>
             <label htmlFor='title' className='block mb-2 text-xl font-medium text-gray-900 dark:text-white'>Tiêu đề</label>
             <input type='text' id='title' name='title' value={title} onChange={handleTitleChange} placeholder='Nhập tiêu đề bài viết'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             />
           </div>
 
@@ -83,7 +83,7 @@ const PostForm = () => {
               Tải hình ảnh lên
             </label>
             <input
-              className='block w-full text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
+              className='block w-full text-xl p-2.5 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
               type='file' 
               id='banner'
               name='banner'
