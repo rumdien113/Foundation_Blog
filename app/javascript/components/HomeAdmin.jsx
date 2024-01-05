@@ -369,7 +369,7 @@ const HomeAdmin = () => {
                     alt='Avatar'
                     className='w-10 h-10 rounded-full mr-4'
                   />
-                  <p className='text-xl font-semibold text-white'>{user.username}</p>
+                  <p className='text-xl font-normal text-white'>{user.username}</p>
                 </div>
               ))}
             </div>
